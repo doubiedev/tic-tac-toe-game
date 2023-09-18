@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import {
+	useNewGameMenu,
+	useNewGameMenuUpdate,
+} from '../contexts/NewGameMenuContext';
 
 const NewGameMenu = () => {
-	const navigate = useNavigate();
-
-	const [isPlayerOneX, setIsPlayerOneX] = useState(true);
-
-	const handleNewGameClick = (gameType) => {
-		navigate('/game', { state: { gameType, isPlayerOneX } });
-	};
+	const { isPlayerOneX } = useNewGameMenu();
+	const { setIsPlayerOneX, handleNewGameClick } = useNewGameMenuUpdate();
 
 	return (
 		<>
