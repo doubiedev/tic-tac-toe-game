@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const NewGameMenu = () => {
+	const navigate = useNavigate();
+
 	const [isPlayerOneX, setIsPlayerOneX] = useState(true);
+
+	const handleNewGameClick = (gameType) => {
+		navigate('/game', { state: { gameType, isPlayerOneX } });
+	};
 
 	return (
 		<>
@@ -11,9 +18,13 @@ const NewGameMenu = () => {
 			<br />
 			<p>Player 1's Selected Mark: {isPlayerOneX ? 'X' : 'O'}</p>
 
-			<button>NEW GAME (VS CPU)</button>
+			<button onClick={() => handleNewGameClick('cpu')}>
+				NEW GAME (VS CPU)
+			</button>
 			<br />
-			<button>NEW GAME (VS PLAYER)</button>
+			<button onClick={() => handleNewGameClick('player')}>
+				NEW GAME (VS PLAYER)
+			</button>
 		</>
 	);
 };
