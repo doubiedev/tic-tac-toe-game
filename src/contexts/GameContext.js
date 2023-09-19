@@ -20,11 +20,15 @@ export const GameProvider = ({ children }) => {
 	);
 
 	const handleClick = (id) => {
-		const updatedGridItems = gridItems.map((gridItem) =>
-			gridItem.id === id ? { ...gridItem, mark: currentPlayerTurn } : gridItem
-		);
-		setGridItems(updatedGridItems);
-		setCurrentPlayerTurn(currentPlayerTurn === 'x' ? 'o' : 'x');
+		if (gridItems.find((gridItem) => gridItem.id === id).mark === '') {
+			const updatedGridItems = gridItems.map((gridItem) =>
+				gridItem.id === id && gridItem.mark === ''
+					? { ...gridItem, mark: currentPlayerTurn }
+					: gridItem
+			);
+			setGridItems(updatedGridItems);
+			setCurrentPlayerTurn(currentPlayerTurn === 'x' ? 'o' : 'x');
+		}
 	};
 
 	return (
