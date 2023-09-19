@@ -19,7 +19,7 @@ export const GameProvider = ({ children }) => {
 		isPlayerOneX ? 'x' : 'o'
 	);
 
-	const handleClick = (id) => {
+	const handleGridItemClick = (id) => {
 		if (gridItems.find((gridItem) => gridItem.id === id).mark === '') {
 			const updatedGridItems = gridItems.map((gridItem) =>
 				gridItem.id === id && gridItem.mark === ''
@@ -31,9 +31,13 @@ export const GameProvider = ({ children }) => {
 		}
 	};
 
+	const handleReset = () => {
+		setGridItems(initialGridItems);
+	};
+
 	return (
 		<GameContext.Provider value={{ gridItems, currentPlayerTurn }}>
-			<GameContextUpdate.Provider value={{ handleClick }}>
+			<GameContextUpdate.Provider value={{ handleGridItemClick, handleReset }}>
 				{children}
 			</GameContextUpdate.Provider>
 		</GameContext.Provider>
