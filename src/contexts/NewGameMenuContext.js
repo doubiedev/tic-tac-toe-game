@@ -19,10 +19,10 @@ export const NewGameMenuProvider = ({ children }) => {
 	};
 
 	return (
-		<NewGameMenuContext.Provider
-			value={{ isPlayerOneX, setIsPlayerOneX, gameType }}
-		>
-			<NewGameMenuContextUpdate.Provider value={{ handleNewGameClick }}>
+		<NewGameMenuContext.Provider value={{ isPlayerOneX, gameType }}>
+			<NewGameMenuContextUpdate.Provider
+				value={{ handleNewGameClick, setIsPlayerOneX }}
+			>
 				{children}
 			</NewGameMenuContextUpdate.Provider>
 		</NewGameMenuContext.Provider>
