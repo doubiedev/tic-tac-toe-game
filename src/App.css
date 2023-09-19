@@ -1,0 +1,13 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  width: 150px;
+  height: 150px;
+}
+
+.grid-item {
+  user-select: none;
+  border: 1px solid black;
+  height: 50px;
+  width: 50px;
+}

@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { useNewGameMenu } from './NewGameMenuContext';
 
 const GameContext = createContext();
@@ -10,11 +10,22 @@ export const useGameUpdate = () => useContext(GameContextUpdate);
 export const GameProvider = ({ children }) => {
 	const { gameType } = useNewGameMenu();
 
-	console.log(gameType);
+	const initialGridItems = [];
+	for (let id = 1; id <= 9; id++) {
+		initialGridItems.push({ id, mark: '', isWinState: false });
+	}
+	const [gridItems, setGridItems] = useState(initialGridItems);
+
+	const handleClick = (id) => {
+		const updatedGridItems = gridItems.map((gridItem) =>
+			gridItem.id === id ? { ...gridItem, mark: 'on' } : gridItem
+		);
+		setGridItems(updatedGridItems);
+	};
 
 	return (
-		<GameContext.Provider value={''}>
-			<GameContextUpdate.Provider value={''}>
+		<GameContext.Provider value={{ gridItems }}>
+			<GameContextUpdate.Provider value={{ handleClick }}>
 				{children}
 			</GameContextUpdate.Provider>
 		</GameContext.Provider>
