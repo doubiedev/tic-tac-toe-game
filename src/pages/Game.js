@@ -5,7 +5,7 @@ import ResetButton from '../components/ResetButton';
 import Score from '../components/Score';
 
 const Game = () => {
-	const { currentPlayerTurn } = useGame();
+	const { currentPlayerTurn, isWin, isTie } = useGame();
 
 	return (
 		<div>
@@ -19,6 +19,11 @@ const Game = () => {
 			<Grid />
 			<br />
 			<Score />
+			{isWin ? (
+				<div>Winner: {currentPlayerTurn}</div>
+			) : (
+				<div>{isTie && <p>Game Tied</p>}</div>
+			)}
 		</div>
 	);
 };

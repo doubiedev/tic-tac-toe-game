@@ -18,6 +18,8 @@ export const GameProvider = ({ children }) => {
 	const [currentPlayerTurn, setCurrentPlayerTurn] = useState(
 		isPlayerOneX ? 'x' : 'o'
 	);
+	const [isWin, setIsWin] = useState(false);
+	const [isTie, setIsTie] = useState(false);
 
 	const handleGridItemClick = (id) => {
 		if (gridItems.find((gridItem) => gridItem.id === id).mark === '') {
@@ -27,7 +29,12 @@ export const GameProvider = ({ children }) => {
 					: gridItem
 			);
 			setGridItems(updatedGridItems);
-			setCurrentPlayerTurn(currentPlayerTurn === 'x' ? 'o' : 'x');
+			setIsWin(isWinner(updatedGridItems));
+			setIsTie(isTied(updatedGridItems));
+
+			if (!isWinner(updatedGridItems) && !isTied(updatedGridItems)) {
+				setCurrentPlayerTurn(currentPlayerTurn === 'x' ? 'o' : 'x');
+			}
 		}
 	};
 
@@ -35,8 +42,43 @@ export const GameProvider = ({ children }) => {
 		setGridItems(initialGridItems);
 	};
 
+	const isWinner = (updatedGridItems) => {
+		const currentPlayerMarks = updatedGridItems
+			.filter((gridItem) => gridItem.mark === currentPlayerTurn)
+			.map((gridItem) => gridItem.id);
+
+		const winningCombinations = [
+			[1, 2, 3],
+			[4, 5, 6],
+			[7, 8, 9],
+			[1, 4, 7],
+			[2, 5, 8],
+			[3, 6, 9],
+			[1, 5, 9],
+			[3, 5, 7],
+		];
+
+		const isWinningCombination = winningCombinations.some((combo) =>
+			combo.every((item) => currentPlayerMarks.includes(item))
+		);
+		return isWinningCombination;
+	};
+
+	const isTied = (updatedGridItems) => {
+		const isGridFull = !updatedGridItems.some(
+			(gridItem) => gridItem.mark === ''
+		);
+		return isGridFull;
+	};
+
+	// useEffect(() => {
+	// 	console.log(currentPlayerMarks);
+	// }, [currentPlayerMarks]);
+
 	return (
-		<GameContext.Provider value={{ gridItems, currentPlayerTurn }}>
+		<GameContext.Provider
+			value={{ gridItems, currentPlayerTurn, isWin, isTie }}
+		>
 			<GameContextUpdate.Provider value={{ handleGridItemClick, handleReset }}>
 				{children}
 			</GameContextUpdate.Provider>
