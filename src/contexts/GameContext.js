@@ -15,6 +15,7 @@ export const GameProvider = ({ children }) => {
 		initialGridItems.push({ id, mark: '', isWinState: false });
 	}
 	const [gridItems, setGridItems] = useState(initialGridItems);
+
 	const [currentPlayerTurn, setCurrentPlayerTurn] = useState(
 		isPlayerOneX ? 'x' : 'o'
 	);
@@ -70,10 +71,6 @@ export const GameProvider = ({ children }) => {
 		);
 		return isGridFull;
 	};
-
-	// useEffect(() => {
-	// 	console.log(currentPlayerMarks);
-	// }, [currentPlayerMarks]);
 
 	return (
 		<GameContext.Provider
