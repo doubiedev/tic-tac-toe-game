@@ -1,29 +1,33 @@
 import React from 'react';
-import {
-	useNewGameMenu,
-	useNewGameMenuUpdate,
-} from '../contexts/NewGameMenuContext';
+import { useNewGameMenuUpdate } from '../contexts/NewGameMenuContext';
+import PlayerPicker from '../components/PlayerPicker';
+import logo from '../assets/logo.svg';
 
 const NewGameMenu = () => {
-	const { isPlayerOneX } = useNewGameMenu();
-	const { setIsPlayerOneX, handleNewGameClick } = useNewGameMenuUpdate();
+	const { handleNewGameClick } = useNewGameMenuUpdate();
 
 	return (
-		<>
-			<button onClick={() => setIsPlayerOneX(!isPlayerOneX)}>
-				Swap Player 1's Mark
-			</button>
-			<br />
-			<p>Player 1's Selected Mark: {isPlayerOneX ? 'X' : 'O'}</p>
-
-			<button onClick={() => handleNewGameClick('cpu')}>
-				NEW GAME (VS CPU)
-			</button>
-			<br />
-			<button onClick={() => handleNewGameClick('player')}>
-				NEW GAME (VS PLAYER)
-			</button>
-		</>
+		<main>
+			<div className='new-game-container'>
+				<object data={logo} type='image/svg+xml'>
+					Logo
+				</object>
+				<PlayerPicker />
+				<button
+					className='btn-yellow max-width'
+					onClick={() => handleNewGameClick('cpu')}
+				>
+					NEW GAME (VS CPU)
+				</button>
+				<br />
+				<button
+					className='btn-blue max-width'
+					onClick={() => handleNewGameClick('player')}
+				>
+					NEW GAME (VS PLAYER)
+				</button>
+			</div>
+		</main>
 	);
 };
 
