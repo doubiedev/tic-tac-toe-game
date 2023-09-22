@@ -21,7 +21,6 @@
   padding: 0px;
   margin: 0px;
   border: 0px;
-  line-height: 1em;
 }
 
 main {
@@ -52,19 +51,24 @@ main {
 }
 
 .heading-L {
-  font-size: 2.5em;
+  font-size: 2.5rem;
+  letter-spacing: 2.5px;
 }
 .heading-M {
-  font-size: 1.5em;
+  font-size: 1.5rem;
+  letter-spacing: 1.5px;
 }
 .heading-S {
-  font-size: 1.25em;
+  font-size: 1.25rem;
+  letter-spacing: 1.25px;
 }
 .heading-XS {
-  font-size: 1em;
+  font-size: 1rem;
+  letter-spacing: 1px;
 }
 .body {
-  font-size: 14px;
+  font-size: 0.875rem;
+  letter-spacing: 0.8px
 }
 
 .btn-blue {
@@ -94,10 +98,14 @@ main {
 }
 
 .player-picker {
-  height: 205px;
+  height: 197px;
+  margin: 40px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: var(--dark-secondary);
+  box-shadow: 0 8px var(--dark-shadow);
+  border-radius: 15px;
 }
 
 .player-picker h4 {
@@ -105,23 +113,52 @@ main {
   color: var(--light-primary);
 }
 
+.player-picker p {
+  margin-top: 17px;
+
+  color: var(--light-shadow)
+}
+
 .player-picker-btn {
   cursor: pointer;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 8px;
+  width: 412px;
+  height: 72px;
+  background-color: var(--dark-primary);
+  border-radius: 15px;
 }
 
 .player-picker-x {
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+  border-radius: 15px;
 }
 
 .player-picker-o {
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+  border-radius: 15px;
 }
 
-.player-picker p {
-  color: var(--light-shadow);
-}
 
-.player-picker svg {
-  fill: var(--light-primary)
+#mark-selected {
+  background-color: var(--light-primary);
+}
+.mark-selected path {
+  fill: var(--dark-primary);
+}
+#mark-not-selected {
+  background-color: var(--dark-primary);
+}
+.mark-not-selected path {
+  fill: var(--light-primary);
 }
