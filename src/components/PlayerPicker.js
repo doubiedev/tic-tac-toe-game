@@ -12,14 +12,12 @@ const PlayerPicker = () => {
 
 	return (
 		<div className='player-picker max-width'>
-			<h4 className='heading-XS'>PICK PLAYER 1's MARK</h4>
-			<div
-				className='player-picker-btn'
-				onClick={() => setIsPlayerOneX(!isPlayerOneX)}
-			>
+			<h4 className='heading-XS'>PICK PLAYER 1'S MARK</h4>
+			<div className='player-picker-btn-wrapper'>
 				<div
 					className='player-picker-x'
 					id={isPlayerOneX ? 'mark-selected' : 'mark-not-selected'}
+					onClick={() => setIsPlayerOneX(true)}
 				>
 					<IconX
 						style={{ width: '32px', height: '32px' }}
@@ -29,6 +27,7 @@ const PlayerPicker = () => {
 				<div
 					className='player-picker-o'
 					id={isPlayerOneX ? 'mark-not-selected' : 'mark-selected'}
+					onClick={() => setIsPlayerOneX(false)}
 				>
 					<IconO
 						style={{ width: '32px', height: '32px' }}

@@ -11,6 +11,7 @@
   --dark-secondary:#1F3641;
   --dark-shadow:#10212A;
   --light-primary:#A8BFC9;
+  --light-primary-hover: rgba(168, 191, 201, 0.05);
   --light-secondary:#DBE8ED;
   --light-shadow: #6B8997;
 }
@@ -23,13 +24,16 @@
   border: 0px;
 }
 
+body {
+  background-color: var(--dark-primary);
+}
+
 main {
   height: 100vh;
   width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--dark-primary);
 }
 
 .max-width {
@@ -53,41 +57,44 @@ main {
 .heading-L {
   font-size: 2.5rem;
   letter-spacing: 2.5px;
+  font-weight: 700;
 }
 .heading-M {
   font-size: 1.5rem;
   letter-spacing: 1.5px;
+  font-weight: 700;
 }
 .heading-S {
   font-size: 1.25rem;
   letter-spacing: 1.25px;
+  font-weight: 700;
 }
 .heading-XS {
   font-size: 1rem;
   letter-spacing: 1px;
+  font-weight: 700;
 }
 .body {
   font-size: 0.875rem;
-  letter-spacing: 0.8px
+  letter-spacing: 0.8px;
+  font-weight: 500;
 }
 
 .btn-blue {
-  background-color: var(--blue-primary)
+  background-color: var(--blue-primary);
+  box-shadow: inset 0px -0.5rem var(--blue-shadow);
 }
 .btn-blue:hover {
-  background-color: var(--blue-secondary)
+  background-color: var(--blue-secondary);
+  box-shadow: inset 0px -0.5rem var(--blue-shadow);
 }
 .btn-yellow {
-  background-color: var(--yellow-primary)
+  background-color: var(--yellow-primary);
+  box-shadow: inset 0px -0.5rem var(--yellow-shadow);
 }
 .btn-yellow:hover {
   background-color: var(--yellow-secondary);
-}
-.btn-light {
-  background-color: var(--light-primary);
-}
-.btn-light:hover {
-  background-color: var(--light-secondary)
+  box-shadow: inset 0px -0.5rem var(--yellow-shadow);
 }
 
 .new-game-container {
@@ -98,13 +105,13 @@ main {
 }
 
 .player-picker {
-  height: 197px;
+  height: 205px;
   margin: 40px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: var(--dark-secondary);
-  box-shadow: 0 8px var(--dark-shadow);
+  box-shadow: inset 0 -8px var(--dark-shadow);
   border-radius: 15px;
 }
 
@@ -115,17 +122,16 @@ main {
 
 .player-picker p {
   margin-top: 17px;
-
-  color: var(--light-shadow)
+  color: var(--light-primary);
+  opacity: 0.5;
 }
 
-.player-picker-btn {
-  cursor: pointer;
+.player-picker-btn-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 9px 8px;
-  width: 412px;
+  width: calc(100% - 48px);
   height: 72px;
   background-color: var(--dark-primary);
   border-radius: 15px;
@@ -149,7 +155,6 @@ main {
   border-radius: 15px;
 }
 
-
 #mark-selected {
   background-color: var(--light-primary);
 }
@@ -159,6 +164,24 @@ main {
 #mark-not-selected {
   background-color: var(--dark-primary);
 }
+#mark-not-selected:hover {
+  background-color: var(--light-primary-hover);
+  cursor: pointer;
+}
 .mark-not-selected path {
   fill: var(--light-primary);
+}
+
+.btn-new-game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  height: clamp(56px, 9vw, 67px);
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.btn-new-game h3 {
+  transform: translateY(-0.25rem);
 }
