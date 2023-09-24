@@ -41,6 +41,7 @@ export const GameProvider = ({ children }) => {
 
 	const handleReset = () => {
 		setGridItems(initialGridItems);
+		setCurrentPlayerTurn(isPlayerOneX ? 'x' : 'o');
 	};
 
 	const isWinner = (updatedGridItems) => {
