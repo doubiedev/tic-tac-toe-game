@@ -12,7 +12,7 @@ export const GameProvider = ({ children }) => {
 
 	const initialGridItems = [];
 	for (let id = 1; id <= 9; id++) {
-		initialGridItems.push({ id, mark: '', isWinState: false });
+		initialGridItems.push({ id, mark: '' });
 	}
 	const [gridItems, setGridItems] = useState(initialGridItems);
 
@@ -21,6 +21,7 @@ export const GameProvider = ({ children }) => {
 	);
 	const [isWin, setIsWin] = useState(false);
 	const [isTie, setIsTie] = useState(false);
+	const [isHoverId, setIsHoverId] = useState(null);
 
 	const handleGridItemClick = (id) => {
 		if (gridItems.find((gridItem) => gridItem.id === id).mark === '') {
@@ -36,6 +37,15 @@ export const GameProvider = ({ children }) => {
 			if (!isWinner(updatedGridItems) && !isTied(updatedGridItems)) {
 				setCurrentPlayerTurn(currentPlayerTurn === 'x' ? 'o' : 'x');
 			}
+		}
+	};
+
+	const handleGridItemHover = (e, id) => {
+		if (e.type === 'mouseenter') {
+			setIsHoverId(id);
+		}
+		if (e.type === 'mouseleave') {
+			setIsHoverId(null);
 		}
 	};
 
@@ -75,9 +85,11 @@ export const GameProvider = ({ children }) => {
 
 	return (
 		<GameContext.Provider
-			value={{ gridItems, currentPlayerTurn, isWin, isTie }}
+			value={{ gridItems, currentPlayerTurn, isWin, isTie, isHoverId }}
 		>
-			<GameContextUpdate.Provider value={{ handleGridItemClick, handleReset }}>
+			<GameContextUpdate.Provider
+				value={{ handleGridItemClick, handleGridItemHover, handleReset }}
+			>
 				{children}
 			</GameContextUpdate.Provider>
 		</GameContext.Provider>
