@@ -6,7 +6,7 @@ import { ReactComponent as Logo } from '../assets/logo.svg';
 const NewGameMenu = () => {
 	return (
 		<main>
-			<div className='new-game-container'>
+			<div className='game-container'>
 				<Logo />
 				<PlayerPicker />
 				<NewGameButtons />
