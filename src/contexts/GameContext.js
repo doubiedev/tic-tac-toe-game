@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useNewGameMenu } from './NewGameMenuContext';
 
 const GameContext = createContext();
@@ -22,6 +22,16 @@ export const GameProvider = ({ children }) => {
 	const [isWin, setIsWin] = useState(false);
 	const [isTie, setIsTie] = useState(false);
 	const [isHoverId, setIsHoverId] = useState(null);
+	const [score, setScore] = useState({ x: 0, ties: 0, o: 0 });
+
+	useEffect(() => {
+		if (isTie) {
+			updateScore('ties');
+		}
+		if (isWin) {
+			updateScore(currentPlayerTurn);
+		}
+	}, [isTie, isWin]);
 
 	const handleGridItemClick = (id) => {
 		if (gridItems.find((gridItem) => gridItem.id === id).mark === '') {
@@ -38,6 +48,14 @@ export const GameProvider = ({ children }) => {
 				setCurrentPlayerTurn(currentPlayerTurn === 'x' ? 'o' : 'x');
 			}
 		}
+	};
+
+	const updateScore = (scoreType) => {
+		setScore((prevScore) => {
+			const newScore = { ...prevScore };
+			newScore[scoreType] += 1;
+			return newScore;
+		});
 	};
 
 	const handleGridItemHover = (e, id) => {
@@ -73,6 +91,7 @@ export const GameProvider = ({ children }) => {
 		const isWinningCombination = winningCombinations.some((combo) =>
 			combo.every((item) => currentPlayerMarks.includes(item))
 		);
+
 		return isWinningCombination;
 	};
 
@@ -85,7 +104,7 @@ export const GameProvider = ({ children }) => {
 
 	return (
 		<GameContext.Provider
-			value={{ gridItems, currentPlayerTurn, isWin, isTie, isHoverId }}
+			value={{ gridItems, currentPlayerTurn, isWin, isTie, isHoverId, score }}
 		>
 			<GameContextUpdate.Provider
 				value={{ handleGridItemClick, handleGridItemHover, handleReset }}

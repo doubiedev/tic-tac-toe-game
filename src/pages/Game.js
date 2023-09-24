@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '../components/Grid';
 import { useGame } from '../contexts/GameContext';
 import ResetButton from '../components/ResetButton';
-import Score from '../components/Score';
+import Scores from '../components/Scores';
 import TurnTracker from '../components/TurnTracker';
 import { ReactComponent as Logo } from '../assets/logo.svg';
 
@@ -18,7 +18,7 @@ const Game = () => {
 					<ResetButton />
 				</div>
 				<Grid />
-				<Score />
+				<Scores />
 				{isWin ? (
 					<div>Winner: {currentPlayerTurn}</div>
 				) : (
