@@ -1,10 +1,15 @@
 import React from 'react';
 import { useGameUpdate } from '../contexts/GameContext';
+import { ReactComponent as Reset } from '../assets/icon-restart.svg';
 
 const ResetButton = () => {
 	const { handleReset } = useGameUpdate();
 
-	return <button onClick={() => handleReset()}>Reset Game</button>;
+	return (
+		<button className='reset-btn' onClick={() => handleReset()}>
+			<Reset />
+		</button>
+	);
 };
 
 export default ResetButton;

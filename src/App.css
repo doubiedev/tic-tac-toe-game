@@ -87,6 +87,8 @@ main {
 	width: clamp(327px, 60%, 460px);
 }
 
+/* New Game Menu Page */
+
 .btn-blue {
 	background-color: var(--blue-primary);
 	box-shadow: inset 0px -0.5rem var(--blue-shadow);
@@ -184,4 +186,51 @@ main {
 
 .btn-new-game h3 {
 	transform: translateY(-0.25rem);
+}
+
+/* Game Page */
+
+.game-top-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	height: 52px;
+}
+
+.turn-tracker {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 140px;
+	height: 100%;
+	color: var(--light-primary);
+	background-color: var(--dark-secondary);
+	border-radius: 10px;
+	box-shadow: inset 0px -0.25rem var(--dark-shadow);
+	padding-bottom: 0.125rem;
+}
+
+.turn-tracker path {
+	fill: var(--light-primary);
+}
+
+.turn-tracker-text {
+	margin-left: 13px;
+	cursor: default;
+	user-select: none;
+}
+
+.reset-btn {
+	cursor: pointer;
+	height: 100%;
+	width: 52px;
+	background-color: var(--light-primary);
+	border-radius: 10px;
+	box-shadow: inset 0px -0.25rem var(--light-shadow);
+	padding-bottom: 0.125rem;
+}
+
+.reset-btn:hover {
+	background-color: var(--light-secondary);
 }
