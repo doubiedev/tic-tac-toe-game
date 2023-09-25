@@ -250,6 +250,7 @@ main {
 
 .score {
 	height: 72px;
+	width: 140px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

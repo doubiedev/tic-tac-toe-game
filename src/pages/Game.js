@@ -19,11 +19,6 @@ const Game = () => {
 				</div>
 				<Grid />
 				<Scores />
-				{isWin ? (
-					<div>Winner: {currentPlayerTurn}</div>
-				) : (
-					<div>{isTie && <p>Game Tied</p>}</div>
-				)}
 			</div>
 		</main>
 	);
