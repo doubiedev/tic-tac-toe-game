@@ -25,7 +25,7 @@ export const GameProvider = ({ children }) => {
 	const [score, setScore] = useState({ x: 0, ties: 0, o: 0 });
 
 	useEffect(() => {
-		if (isTie) {
+		if (!isWin && isTie) {
 			updateScore('ties');
 		}
 		if (isWin) {
