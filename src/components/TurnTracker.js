@@ -7,12 +7,8 @@ const TurnTracker = () => {
 	const { currentPlayerTurn } = useGame();
 	return (
 		<div className='turn-tracker'>
-			{currentPlayerTurn === 'x' ? (
-				<IconX style={{ width: '20px', height: '20px' }} />
-			) : (
-				<IconO style={{ width: '20px', height: '20px' }} />
-			)}
-			<h4 className='heading-XS turn-tracker-text'>TURN</h4>
+			{currentPlayerTurn === 'x' ? <IconX /> : <IconO />}
+			<h4 className='turn-tracker-text'>TURN</h4>
 		</div>
 	);
 };

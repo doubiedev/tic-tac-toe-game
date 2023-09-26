@@ -17,7 +17,7 @@ const Score = ({ type }) => {
 						{!isPlayerOneX && type === 'x' && ' (CPU)'}
 						{!isPlayerOneX && type === 'o' && ' (YOU)'}
 					</p>
-					<h2>{score[type]}</h2>
+					<h2 className='heading-M'>{score[type]}</h2>
 				</div>
 			)}
 			{gameType === 'player' && (
@@ -29,7 +29,7 @@ const Score = ({ type }) => {
 						{!isPlayerOneX && type === 'x' && ' (P2)'}
 						{!isPlayerOneX && type === 'o' && ' (P1)'}
 					</p>
-					<h2>{score[type]}</h2>
+					<h2 className='heading-M'>{score[type]}</h2>
 				</div>
 			)}
 		</>
