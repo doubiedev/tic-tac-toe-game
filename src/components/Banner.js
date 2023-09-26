@@ -7,7 +7,6 @@ import BannerButtons from './BannerButtons';
 const Banner = () => {
 	const { showBanner, isWin, isTie, currentPlayerTurn, shouldReset } =
 		useGame();
-	const { toggleBanner } = useGameUpdate();
 	return (
 		<>
 			{showBanner && (

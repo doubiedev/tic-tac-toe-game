@@ -73,6 +73,34 @@ main {
 	width: clamp(327px, 60%, 460px);
 }
 
+@media screen and (min-width: 375px) {
+	.btn-new-game {
+		height: 56px;
+	}
+
+	.btn-yellow {
+		margin-bottom: 16px;
+	}
+
+	.player-picker {
+		margin: 32px 0;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.btn-new-game {
+		height: 67px;
+	}
+
+	.btn-yellow {
+		margin-bottom: 20px;
+	}
+
+	.player-picker {
+		margin: 40px 0;
+	}
+}
+
 /* New Game Menu Page */
 
 .btn-blue {
@@ -94,7 +122,6 @@ main {
 
 .player-picker {
 	height: 205px;
-	margin: 40px 0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -164,10 +191,9 @@ main {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-bottom: 20px;
-	height: clamp(56px, 9vw, 67px);
 	border-radius: 15px;
 	cursor: pointer;
+	color: var(--dark-primary);
 }
 
 .btn-new-game h3 {
