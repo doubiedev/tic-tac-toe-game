@@ -239,6 +239,7 @@ main {
 	border-radius: 15px;
 	box-shadow: inset 0px -0.5rem var(--dark-shadow);
 	padding-bottom: 0.25rem;
+	cursor: pointer;
 }
 
 .scores-container {
