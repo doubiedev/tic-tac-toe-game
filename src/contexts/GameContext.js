@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useNewGameMenu } from './NewGameMenuContext';
 
 const GameContext = createContext();
@@ -9,6 +10,7 @@ export const useGameUpdate = () => useContext(GameContextUpdate);
 
 export const GameProvider = ({ children }) => {
 	const { gameType, isPlayerOneX } = useNewGameMenu();
+	const navigate = useNavigate();
 
 	const initialGridItems = [];
 	for (let id = 1; id <= 9; id++) {
@@ -25,6 +27,10 @@ export const GameProvider = ({ children }) => {
 	const [score, setScore] = useState({ x: 0, ties: 0, o: 0 });
 	const [showBanner, setShowBanner] = useState(false);
 	const [shouldReset, setShouldReset] = useState(false);
+
+	useEffect(() => {
+		if (gameType === '') navigate('/');
+	}, []);
 
 	useEffect(() => {
 		if (!isWin && isTie) {
