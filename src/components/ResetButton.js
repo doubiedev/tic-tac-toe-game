@@ -3,10 +3,10 @@ import { useGameUpdate } from '../contexts/GameContext';
 import { ReactComponent as Reset } from '../assets/icon-restart.svg';
 
 const ResetButton = () => {
-	const { handleReset } = useGameUpdate();
+	const { handleResetButton } = useGameUpdate();
 
 	return (
-		<button className='reset-btn' onClick={() => handleReset()}>
+		<button className='reset-btn' onClick={() => handleResetButton()}>
 			<Reset />
 		</button>
 	);

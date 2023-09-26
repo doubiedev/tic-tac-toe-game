@@ -1,16 +1,15 @@
 import React from 'react';
 import Grid from '../components/Grid';
-import { useGame } from '../contexts/GameContext';
 import ResetButton from '../components/ResetButton';
 import Scores from '../components/Scores';
 import TurnTracker from '../components/TurnTracker';
+import Banner from '../components/Banner';
 import { ReactComponent as Logo } from '../assets/logo.svg';
 
 const Game = () => {
-	const { currentPlayerTurn, isWin, isTie } = useGame();
-
 	return (
 		<main>
+			<Banner />
 			<div className='game-container'>
 				<div className='game-top-wrapper'>
 					<Logo />

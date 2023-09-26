@@ -23,13 +23,17 @@ export const GameProvider = ({ children }) => {
 	const [isTie, setIsTie] = useState(false);
 	const [isHoverId, setIsHoverId] = useState(null);
 	const [score, setScore] = useState({ x: 0, ties: 0, o: 0 });
+	const [showBanner, setShowBanner] = useState(false);
+	const [shouldReset, setShouldReset] = useState(false);
 
 	useEffect(() => {
 		if (!isWin && isTie) {
 			updateScore('ties');
+			toggleBanner();
 		}
 		if (isWin) {
 			updateScore(currentPlayerTurn);
+			toggleBanner();
 		}
 	}, [isTie, isWin]);
 
@@ -67,10 +71,19 @@ export const GameProvider = ({ children }) => {
 		}
 	};
 
-	const handleReset = () => {
+	const handleResetButton = () => {
+		setShouldReset(true);
+		toggleBanner();
+	};
+
+	const handleBannerReset = () => {
 		setGridItems(initialGridItems);
 		setCurrentPlayerTurn(isPlayerOneX ? 'x' : 'o');
+		setIsWin(false);
+		setIsTie(false);
 	};
+
+	const handleQuit = () => {};
 
 	const isWinner = (updatedGridItems) => {
 		const currentPlayerMarks = updatedGridItems
@@ -102,12 +115,32 @@ export const GameProvider = ({ children }) => {
 		return isGridFull;
 	};
 
+	const toggleBanner = () => {
+		setShowBanner(!showBanner);
+	};
+
 	return (
 		<GameContext.Provider
-			value={{ gridItems, currentPlayerTurn, isWin, isTie, isHoverId, score }}
+			value={{
+				gridItems,
+				currentPlayerTurn,
+				isWin,
+				isTie,
+				isHoverId,
+				score,
+				showBanner,
+				shouldReset,
+			}}
 		>
 			<GameContextUpdate.Provider
-				value={{ handleGridItemClick, handleGridItemHover, handleReset }}
+				value={{
+					handleGridItemClick,
+					handleGridItemHover,
+					handleResetButton,
+					toggleBanner,
+					handleBannerReset,
+					handleQuit,
+				}}
 			>
 				{children}
 			</GameContextUpdate.Provider>
