@@ -169,9 +169,17 @@ body {
 main {
 	height: 100vh;
 	width: 100vw;
+}
+
+/* Utils */
+
+.flex {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+.flex-column {
+	flex-direction: column;
 }
 
 .max-width {
@@ -204,10 +212,72 @@ main {
 	font-weight: 500;
 }
 
-.game-container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+.bg-blue {
+	background-color: var(--blue-primary);
+}
+.bg-blue-highlight {
+	background-color: var(--blue-secondary);
+}
+.bg-yellow {
+	background-color: var(--yellow-primary);
+}
+.bg-yellow-highlight {
+	background-color: var(--yellow-secondary);
+}
+.bg-light {
+	background-color: var(--light-primary);
+}
+.bg-light-highlight {
+	background-color: var(--light-secondary);
+}
+.bg-dark {
+	background-color: var(--dark-primary);
+}
+.bg-dark-highlight {
+	background-color: var(--dark-secondary);
+}
+
+.text-blue {
+	color: var(--blue-primary);
+}
+.text-yellow {
+	color: var(--yellow-primary);
+}
+.text-light {
+	color: var(--light-primary);
+}
+
+.box-shadow-blue-L {
+	box-shadow: inset 0px -0.5rem var(--blue-shadow);
+}
+.box-shadow-yellow-L {
+	box-shadow: inset 0px -0.5rem var(--yellow-shadow);
+}
+.box-shadow-light-L {
+	box-shadow: inset 0px -0.5rem var(--light-shadow);
+}
+.box-shadow-dark-L {
+	box-shadow: inset 0 -0.5rem var(--dark-shadow);
+}
+
+.box-shadow-blue-M {
+	box-shadow: inset 0px -0.25rem var(--blue-shadow);
+}
+.box-shadow-yellow-M {
+	box-shadow: inset 0px -0.25rem var(--yellow-shadow);
+}
+.box-shadow-light-M {
+	box-shadow: inset 0px -0.25rem var(--light-shadow);
+}
+
+.border-radius-L {
+	border-radius: 15px;
+}
+.border-radius-M {
+	border-radius: 10px;
+}
+.border-radius-S {
+	border-radius: 5px;
 }
 
 /* New Game Menu Page */
@@ -218,7 +288,6 @@ main {
 }
 .btn-blue:hover {
 	background-color: var(--blue-secondary);
-	box-shadow: inset 0px -0.5rem var(--blue-shadow);
 }
 .btn-yellow {
 	background-color: var(--yellow-primary);
@@ -226,7 +295,6 @@ main {
 }
 .btn-yellow:hover {
 	background-color: var(--yellow-secondary);
-	box-shadow: inset 0px -0.5rem var(--yellow-shadow);
 }
 
 .player-picker {
@@ -251,9 +319,6 @@ main {
 }
 
 .player-picker-btn-wrapper {
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	padding: 9px 8px;
 	width: calc(100% - 48px);
 	height: 72px;
@@ -261,19 +326,8 @@ main {
 	border-radius: 15px;
 }
 
-.player-picker-x {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 50%;
-	height: 100%;
-	border-radius: 15px;
-}
-
+.player-picker-x,
 .player-picker-o {
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	width: 50%;
 	height: 100%;
 	border-radius: 15px;
@@ -297,9 +351,6 @@ main {
 }
 
 .btn-new-game {
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	border-radius: 15px;
 	cursor: pointer;
 	color: var(--dark-primary);
@@ -319,9 +370,6 @@ main {
 }
 
 .turn-tracker {
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	height: 100%;
 	color: var(--light-primary);
 	background-color: var(--dark-secondary);
@@ -359,9 +407,6 @@ main {
 
 .grid-item {
 	user-select: none;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	border-radius: 15px;
 	padding-bottom: 0.25rem;
 	cursor: pointer;
@@ -390,11 +435,9 @@ main {
 }
 
 .score {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	border-radius: 15px;
+	justify-content: flex-start;
 	padding-top: 13px;
+	border-radius: 15px;
 }
 
 .score:nth-child(1) {
@@ -410,9 +453,6 @@ main {
 /* Banner */
 
 .banner-container {
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -422,30 +462,14 @@ main {
 }
 
 .banner-wrapper {
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	width: 100%;
 	height: 266px;
 	background-color: var(--dark-secondary);
 }
 
-.banner {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
 .banner-win-loss-text {
 	color: var(--light-primary);
 	margin-bottom: 16px;
-}
-
-.banner-title-text-wrapper {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
 }
 
 .text-blue {
@@ -461,7 +485,6 @@ main {
 
 .banner-btns div {
 	height: 52px;
-	display: flex;
 	margin-top: 24px;
 }
 
@@ -472,6 +495,7 @@ main {
 	border-radius: 10px;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 }
 
 .banner-btn-grey {

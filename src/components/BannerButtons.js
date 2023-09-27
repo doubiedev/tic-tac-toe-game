@@ -7,7 +7,7 @@ const BannerButtons = ({ type }) => {
 	return (
 		<div className='banner-btns'>
 			{isGameOver ? (
-				<div>
+				<div className='flex'>
 					<button
 						className='banner-btn-grey heading-XS'
 						onClick={() => {
@@ -28,7 +28,7 @@ const BannerButtons = ({ type }) => {
 					</button>
 				</div>
 			) : (
-				<div>
+				<div className='flex'>
 					<button
 						className='banner-btn-grey heading-XS'
 						onClick={() => toggleBanner()}

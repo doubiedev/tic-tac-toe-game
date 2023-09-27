@@ -5,8 +5,8 @@ import { ReactComponent as Logo } from '../assets/logo.svg';
 
 const NewGameMenu = () => {
 	return (
-		<main>
-			<div className='game-container'>
+		<main className='flex'>
+			<div className='game-container flex flex-column'>
 				<Logo />
 				<PlayerPicker />
 				<NewGameButtons />

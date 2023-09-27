@@ -9,21 +9,23 @@ const Banner = () => {
 	return (
 		<>
 			{showBanner && (
-				<div className='banner-container'>
-					<div className='banner-wrapper'>
-						<div className='banner'>
+				<div className='banner-container flex'>
+					<div className='banner-wrapper flex'>
+						<div className='flex flex-column'>
 							{isWin && (
 								<h4 className='heading-XS banner-win-loss-text'>YOU WON!</h4>
 							)}
 
 							{isWin && (
-								<div className='banner-title-text-wrapper'>
+								<div className='flex max-width'>
 									{currentPlayerTurn === 'x' && (
 										<IconX style={{ marginRight: '24px' }} />
 									)}
+
 									{currentPlayerTurn === 'o' && (
 										<IconO style={{ marginRight: '24px' }} />
 									)}
+
 									<h1
 										className={`heading-L ${
 											currentPlayerTurn === 'x' && 'text-blue'

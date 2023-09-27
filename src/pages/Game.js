@@ -8,9 +8,9 @@ import { ReactComponent as Logo } from '../assets/logo.svg';
 
 const Game = () => {
 	return (
-		<main>
+		<main className='flex'>
 			<Banner />
-			<div className='game-container'>
+			<div className='game-container flex flex-column'>
 				<div className='game-top-wrapper'>
 					<Logo />
 					<TurnTracker />

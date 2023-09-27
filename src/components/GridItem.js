@@ -16,7 +16,7 @@ const GridItem = ({ id }) => {
 
 	return (
 		<div
-			className={`grid-item ${
+			className={`grid-item flex ${
 				isHighlighted && currentPlayerTurn === 'x' && 'highlighted-x'
 			} ${isHighlighted && currentPlayerTurn === 'o' && 'highlighted-o'}
 			${!isHighlighted && 'non-highlighted'}
