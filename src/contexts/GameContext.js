@@ -14,7 +14,7 @@ export const GameProvider = ({ children }) => {
 
 	const initialGridItems = [];
 	for (let id = 1; id <= 9; id++) {
-		initialGridItems.push({ id, mark: '' });
+		initialGridItems.push({ id, mark: '', isHighlighted: false });
 	}
 	const [gridItems, setGridItems] = useState(initialGridItems);
 
@@ -37,16 +37,14 @@ export const GameProvider = ({ children }) => {
 		if (isWinner(gridItems)) {
 			setIsWin(true);
 			updateScore(currentPlayerTurn);
-			setIsGameOver(true);
 			toggleBanner();
 		}
 		if (isTied(gridItems)) {
 			setIsTie(true);
 			updateScore('ties');
-			setIsGameOver(true);
 			toggleBanner();
 		}
-	}, [gridItems]);
+	}, [isGameOver]);
 
 	const handleGridItemClick = (id) => {
 		if (gridItems.find((gridItem) => gridItem.id === id).mark === '') {
@@ -114,9 +112,24 @@ export const GameProvider = ({ children }) => {
 			[3, 5, 7],
 		];
 
+		for (const combo of winningCombinations) {
+			if (combo.every((item) => currentPlayerMarks.includes(item))) {
+				const updatedItems = updatedGridItems.map((gridItem) => ({
+					...gridItem,
+					isHighlighted: combo.includes(gridItem.id),
+				}));
+
+				setGridItems(updatedItems);
+			}
+		}
+
 		const isWinningCombination = winningCombinations.some((combo) =>
 			combo.every((item) => currentPlayerMarks.includes(item))
 		);
+
+		if (isWinningCombination) {
+			setIsGameOver(true);
+		}
 
 		return isWinningCombination;
 	};
@@ -127,6 +140,7 @@ export const GameProvider = ({ children }) => {
 		);
 
 		if (!isWinner(updatedGridItems) && isGridFull) {
+			setIsGameOver(true);
 			return true;
 		} else return false;
 	};

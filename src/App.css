@@ -362,11 +362,24 @@ main {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: var(--dark-secondary);
 	border-radius: 15px;
-	box-shadow: inset 0px -0.5rem var(--dark-shadow);
 	padding-bottom: 0.25rem;
 	cursor: pointer;
+}
+
+.non-highlighted {
+	background-color: var(--dark-secondary);
+	box-shadow: inset 0px -0.5rem var(--dark-shadow);
+}
+
+.highlighted-x {
+	background-color: var(--blue-secondary);
+	box-shadow: inset 0px -0.5rem var(--blue-shadow);
+}
+
+.highlighted-o {
+	background-color: var(--yellow-secondary);
+	box-shadow: inset 0px -0.5rem var(--yellow-shadow);
 }
 
 .scores-container {
@@ -481,4 +494,8 @@ main {
 .banner-btn-yellow:hover {
 	cursor: pointer;
 	background-color: var(--yellow-secondary);
+}
+
+.color-dark path {
+	fill: var(--dark-primary);
 }

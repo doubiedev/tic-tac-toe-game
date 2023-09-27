@@ -6,7 +6,7 @@ const BannerButtons = ({ type }) => {
 	const { handleBannerReset, toggleBanner, handleQuit } = useGameUpdate();
 	return (
 		<div className='banner-btns'>
-			{isGameOver && (
+			{isGameOver ? (
 				<div>
 					<button
 						className='banner-btn-grey heading-XS'
@@ -27,9 +27,7 @@ const BannerButtons = ({ type }) => {
 						NEXT ROUND
 					</button>
 				</div>
-			)}
-
-			{!isGameOver && (
+			) : (
 				<div>
 					<button
 						className='banner-btn-grey heading-XS'

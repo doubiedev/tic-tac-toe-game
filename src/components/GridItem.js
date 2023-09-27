@@ -9,17 +9,24 @@ const GridItem = ({ id }) => {
 	const { gridItems, isHoverId, currentPlayerTurn } = useGame();
 	const { handleGridItemClick, handleGridItemHover } = useGameUpdate();
 
-	let mark = gridItems.find((gridItem) => id === gridItem.id).mark;
+	const mark = gridItems.find((gridItem) => id === gridItem.id).mark;
+	const isHighlighted = gridItems.find(
+		(gridItem) => id === gridItem.id
+	).isHighlighted;
 
 	return (
 		<div
-			className='grid-item'
+			className={`grid-item ${
+				isHighlighted && currentPlayerTurn === 'x' && 'highlighted-x'
+			} ${isHighlighted && currentPlayerTurn === 'o' && 'highlighted-o'}
+			${!isHighlighted && 'non-highlighted'}
+			`}
 			onClick={() => handleGridItemClick(id)}
 			onMouseEnter={(e) => handleGridItemHover(e, id)}
 			onMouseLeave={(e) => handleGridItemHover(e, id)}
 		>
-			{mark === 'x' && <IconX />}
-			{mark === 'o' && <IconO />}
+			{mark === 'x' && <IconX className={isHighlighted ? 'color-dark' : ''} />}
+			{mark === 'o' && <IconO className={isHighlighted ? 'color-dark' : ''} />}
 
 			{mark === '' && isHoverId === id && currentPlayerTurn === 'x' && (
 				<IconXOutline />
