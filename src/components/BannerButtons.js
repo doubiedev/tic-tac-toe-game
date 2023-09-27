@@ -1,32 +1,13 @@
 import React from 'react';
 import { useGame, useGameUpdate } from '../contexts/GameContext';
 
-const BannerButtons = () => {
-	const { shouldReset } = useGame();
+const BannerButtons = ({ type }) => {
+	const { isGameOver } = useGame();
 	const { handleBannerReset, toggleBanner, handleQuit } = useGameUpdate();
 	return (
-		<>
-			{shouldReset && (
-				<div className='banner-btns'>
-					<button
-						className='banner-btn-grey heading-XS'
-						onClick={() => toggleBanner()}
-					>
-						NO, CANCEL
-					</button>
-					<button
-						className='banner-btn-yellow heading-XS'
-						onClick={() => {
-							handleBannerReset();
-							toggleBanner();
-						}}
-					>
-						YES, RESTART
-					</button>
-				</div>
-			)}
-			{!shouldReset && (
-				<div className='banner-btns'>
+		<div className='banner-btns'>
+			{isGameOver && (
+				<div>
 					<button
 						className='banner-btn-grey heading-XS'
 						onClick={() => {
@@ -47,7 +28,27 @@ const BannerButtons = () => {
 					</button>
 				</div>
 			)}
-		</>
+
+			{!isGameOver && (
+				<div>
+					<button
+						className='banner-btn-grey heading-XS'
+						onClick={() => toggleBanner()}
+					>
+						NO, CANCEL
+					</button>
+					<button
+						className='banner-btn-yellow heading-XS'
+						onClick={() => {
+							handleBannerReset();
+							toggleBanner();
+						}}
+					>
+						YES, RESTART
+					</button>
+				</div>
+			)}
+		</div>
 	);
 };
 

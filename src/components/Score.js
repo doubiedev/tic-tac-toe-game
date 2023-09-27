@@ -7,7 +7,6 @@ const Score = ({ type }) => {
 	const { score } = useGame();
 	return (
 		<>
-			{console.log(type)}
 			{gameType === 'cpu' && (
 				<div className='score'>
 					<p className='body'>

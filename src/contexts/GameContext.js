@@ -21,6 +21,7 @@ export const GameProvider = ({ children }) => {
 	const [currentPlayerTurn, setCurrentPlayerTurn] = useState(
 		isPlayerOneX ? 'x' : 'o'
 	);
+	const [isGameOver, setIsGameOver] = useState(false);
 	const [isWin, setIsWin] = useState(false);
 	const [isTie, setIsTie] = useState(false);
 	const [isHoverId, setIsHoverId] = useState(null);
@@ -33,15 +34,19 @@ export const GameProvider = ({ children }) => {
 	}, []);
 
 	useEffect(() => {
-		if (!isWin && isTie) {
-			updateScore('ties');
-			toggleBanner();
-		}
-		if (isWin) {
+		if (isWinner(gridItems)) {
+			setIsWin(true);
 			updateScore(currentPlayerTurn);
+			setIsGameOver(true);
 			toggleBanner();
 		}
-	}, [isTie, isWin]);
+		if (isTied(gridItems)) {
+			setIsTie(true);
+			updateScore('ties');
+			setIsGameOver(true);
+			toggleBanner();
+		}
+	}, [gridItems]);
 
 	const handleGridItemClick = (id) => {
 		if (gridItems.find((gridItem) => gridItem.id === id).mark === '') {
@@ -51,8 +56,6 @@ export const GameProvider = ({ children }) => {
 					: gridItem
 			);
 			setGridItems(updatedGridItems);
-			setIsWin(isWinner(updatedGridItems));
-			setIsTie(isTied(updatedGridItems));
 
 			if (!isWinner(updatedGridItems) && !isTied(updatedGridItems)) {
 				setCurrentPlayerTurn(currentPlayerTurn === 'x' ? 'o' : 'x');
@@ -87,9 +90,13 @@ export const GameProvider = ({ children }) => {
 		setCurrentPlayerTurn(isPlayerOneX ? 'x' : 'o');
 		setIsWin(false);
 		setIsTie(false);
+		setIsGameOver(false);
 	};
 
-	const handleQuit = () => {};
+	const handleQuit = () => {
+		handleBannerReset();
+		navigate('/');
+	};
 
 	const isWinner = (updatedGridItems) => {
 		const currentPlayerMarks = updatedGridItems
@@ -118,7 +125,10 @@ export const GameProvider = ({ children }) => {
 		const isGridFull = !updatedGridItems.some(
 			(gridItem) => gridItem.mark === ''
 		);
-		return isGridFull;
+
+		if (!isWinner(updatedGridItems) && isGridFull) {
+			return true;
+		} else return false;
 	};
 
 	const toggleBanner = () => {
@@ -136,6 +146,7 @@ export const GameProvider = ({ children }) => {
 				score,
 				showBanner,
 				shouldReset,
+				isGameOver,
 			}}
 		>
 			<GameContextUpdate.Provider

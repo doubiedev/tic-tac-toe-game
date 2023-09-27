@@ -446,13 +446,13 @@ main {
 	margin-bottom: 7px;
 }
 
-.banner-btns {
+.banner-btns div {
 	height: 52px;
 	display: flex;
 	margin-top: 24px;
 }
 
-.banner-btns button {
+.banner-btns div button {
 	margin: 0 0.5rem;
 	padding: 0 16px 0.125rem;
 	height: 100%;

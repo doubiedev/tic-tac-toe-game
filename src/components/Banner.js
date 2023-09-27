@@ -1,56 +1,49 @@
 import React from 'react';
-import { useGame, useGameUpdate } from '../contexts/GameContext';
+import { useGame } from '../contexts/GameContext';
 import { ReactComponent as IconX } from '../assets/icon-x.svg';
 import { ReactComponent as IconO } from '../assets/icon-o.svg';
 import BannerButtons from './BannerButtons';
 
 const Banner = () => {
-	const { showBanner, isWin, isTie, currentPlayerTurn, shouldReset } =
-		useGame();
+	const { showBanner, isWin, isTie, currentPlayerTurn } = useGame();
 	return (
 		<>
 			{showBanner && (
 				<div className='banner-container'>
 					<div className='banner-wrapper'>
-						{isWin && currentPlayerTurn === 'x' && (
-							<div className='banner'>
+						<div className='banner'>
+							{isWin && (
 								<h4 className='heading-XS banner-win-loss-text'>YOU WON!</h4>
-								<div className='banner-title-text-wrapper'>
-									<IconX style={{ marginRight: '24px' }} />
-									<h1 className='heading-L text-blue'>TAKES THE ROUND</h1>
-								</div>
-								<BannerButtons />
-							</div>
-						)}
-						{isWin && currentPlayerTurn === 'o' && (
-							<div className='banner'>
-								<h4 className='heading-XS banner-win-loss-text'>YOU WON!</h4>
-								<div className='banner-title-text-wrapper'>
-									<IconO style={{ marginRight: '24px' }} />
-									<h1 className='heading-L text-yellow'>TAKES THE ROUND</h1>
-								</div>
-								<BannerButtons />
-							</div>
-						)}
+							)}
 
-						{!isWin && isTie && (
-							<div className='banner'>
-								<h4 className='heading-XS banner-win-loss-text'>YOU WON!</h4>
+							{isWin && (
 								<div className='banner-title-text-wrapper'>
-									<h1 className='heading-L text-grey'>ROUND TIED</h1>
+									{currentPlayerTurn === 'x' && (
+										<IconX style={{ marginRight: '24px' }} />
+									)}
+									{currentPlayerTurn === 'o' && (
+										<IconO style={{ marginRight: '24px' }} />
+									)}
+									<h1
+										className={`heading-L ${
+											currentPlayerTurn === 'x' && 'text-blue'
+										} ${currentPlayerTurn === 'o' && 'text-yellow'}`}
+									>
+										TAKES THE ROUND
+									</h1>
 								</div>
-								<BannerButtons />
-							</div>
-						)}
+							)}
 
-						{!isWin && !isTie && shouldReset && (
-							<div className='banner'>
+							{!isWin && (
 								<div className='banner-title-text-wrapper'>
-									<h1 className='heading-L text-grey'>RESTART GAME?</h1>
+									<h1 className='heading-L text-grey'>
+										{isTie ? 'ROUND TIED' : 'RESTART GAME?'}
+									</h1>
 								</div>
-								<BannerButtons />
-							</div>
-						)}
+							)}
+
+							<BannerButtons />
+						</div>
 					</div>
 				</div>
 			)}
