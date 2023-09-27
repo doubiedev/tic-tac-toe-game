@@ -186,27 +186,27 @@ main {
 	width: 100%;
 }
 
-.heading-L {
+h1 {
 	font-size: 2.5rem;
 	letter-spacing: 2.5px;
 	font-weight: 700;
 }
-.heading-M {
+h2 {
 	font-size: 1.5rem;
 	letter-spacing: 1.5px;
 	font-weight: 700;
 }
-.heading-S {
+h3 {
 	font-size: 1.25rem;
 	letter-spacing: 1.25px;
 	font-weight: 700;
 }
-.heading-XS {
+h4 {
 	font-size: 1rem;
 	letter-spacing: 1px;
 	font-weight: 700;
 }
-.body {
+p {
 	font-size: 0.875rem;
 	letter-spacing: 0.8px;
 	font-weight: 500;

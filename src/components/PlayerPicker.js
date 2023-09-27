@@ -12,7 +12,7 @@ const PlayerPicker = () => {
 
 	return (
 		<div className='player-picker max-width'>
-			<h4 className='heading-XS'>PICK PLAYER 1'S MARK</h4>
+			<h4>PICK PLAYER 1'S MARK</h4>
 
 			<div className='player-picker-btn-wrapper flex'>
 				<div

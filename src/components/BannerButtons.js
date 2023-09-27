@@ -9,40 +9,37 @@ const BannerButtons = ({ type }) => {
 			{isGameOver ? (
 				<div className='flex'>
 					<button
-						className='banner-btn-grey heading-XS'
+						className='banner-btn-grey'
 						onClick={() => {
 							handleQuit();
 							toggleBanner();
 						}}
 					>
-						QUIT
+						<h4>QUIT</h4>
 					</button>
 					<button
-						className='banner-btn-yellow heading-XS'
+						className='banner-btn-yellow'
 						onClick={() => {
 							handleBannerReset();
 							toggleBanner();
 						}}
 					>
-						NEXT ROUND
+						<h4>NEXT ROUND</h4>
 					</button>
 				</div>
 			) : (
 				<div className='flex'>
-					<button
-						className='banner-btn-grey heading-XS'
-						onClick={() => toggleBanner()}
-					>
-						NO, CANCEL
+					<button className='banner-btn-grey' onClick={() => toggleBanner()}>
+						<h4>NO, CANCEL</h4>
 					</button>
 					<button
-						className='banner-btn-yellow heading-XS'
+						className='banner-btn-yellow'
 						onClick={() => {
 							handleBannerReset();
 							toggleBanner();
 						}}
 					>
-						YES, RESTART
+						<h4>YES, RESTART</h4>
 					</button>
 				</div>
 			)}

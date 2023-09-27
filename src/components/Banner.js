@@ -12,9 +12,7 @@ const Banner = () => {
 				<div className='banner-container flex'>
 					<div className='banner-wrapper flex'>
 						<div className='flex flex-column'>
-							{isWin && (
-								<h4 className='heading-XS banner-win-loss-text'>YOU WON!</h4>
-							)}
+							{isWin && <h4 className='banner-win-loss-text'>YOU WON!</h4>}
 
 							{isWin && (
 								<div className='flex max-width'>
@@ -27,9 +25,9 @@ const Banner = () => {
 									)}
 
 									<h1
-										className={`heading-L ${
-											currentPlayerTurn === 'x' && 'text-blue'
-										} ${currentPlayerTurn === 'o' && 'text-yellow'}`}
+										className={`${currentPlayerTurn === 'x' && 'text-blue'} ${
+											currentPlayerTurn === 'o' && 'text-yellow'
+										}`}
 									>
 										TAKES THE ROUND
 									</h1>
@@ -38,7 +36,7 @@ const Banner = () => {
 
 							{!isWin && (
 								<div className='banner-title-text-wrapper'>
-									<h1 className='heading-L text-grey'>
+									<h1 className='text-grey'>
 										{isTie ? 'ROUND TIED' : 'RESTART GAME?'}
 									</h1>
 								</div>
