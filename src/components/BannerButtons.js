@@ -9,7 +9,7 @@ const BannerButtons = ({ type }) => {
 			{isGameOver ? (
 				<div className='flex'>
 					<button
-						className='banner-btn-grey'
+						className='bg-light bg-light-hover bs-light-M text-dark pointer'
 						onClick={() => {
 							handleQuit();
 							toggleBanner();
@@ -18,7 +18,7 @@ const BannerButtons = ({ type }) => {
 						<h4>QUIT</h4>
 					</button>
 					<button
-						className='banner-btn-yellow'
+						className='bg-yellow bg-yellow-hover bs-yellow-M text-dark pointer'
 						onClick={() => {
 							handleBannerReset();
 							toggleBanner();

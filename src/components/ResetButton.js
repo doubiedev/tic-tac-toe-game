@@ -6,7 +6,10 @@ const ResetButton = () => {
 	const { handleResetButton } = useGameUpdate();
 
 	return (
-		<button className='reset-btn' onClick={() => handleResetButton()}>
+		<button
+			className='reset-btn bg-light bg-light-hover br-M bs-light-M pointer'
+			onClick={() => handleResetButton()}
+		>
 			<Reset />
 		</button>
 	);

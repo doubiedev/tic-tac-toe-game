@@ -11,12 +11,12 @@ const PlayerPicker = () => {
 	const { setIsPlayerOneX } = useNewGameMenuUpdate();
 
 	return (
-		<div className='player-picker max-width'>
-			<h4>PICK PLAYER 1'S MARK</h4>
+		<div className='player-picker flex flex-column bg-dark-highlight bs-dark-L max-width br-L'>
+			<h4 className='text-light'>PICK PLAYER 1'S MARK</h4>
 
-			<div className='player-picker-btn-wrapper flex'>
+			<div className='player-picker-btn-wrapper bg-dark br-L flex'>
 				<div
-					className='player-picker-x flex'
+					className='player-picker-x br-L flex'
 					id={isPlayerOneX ? 'mark-selected' : 'mark-not-selected'}
 					onClick={() => setIsPlayerOneX(true)}
 				>
@@ -27,7 +27,7 @@ const PlayerPicker = () => {
 				</div>
 
 				<div
-					className='player-picker-o flex'
+					className='player-picker-o br-L flex'
 					id={isPlayerOneX ? 'mark-not-selected' : 'mark-selected'}
 					onClick={() => setIsPlayerOneX(false)}
 				>
@@ -38,7 +38,7 @@ const PlayerPicker = () => {
 				</div>
 			</div>
 
-			<p className='body'>REMEMBER : X GOES FIRST</p>
+			<p className='text-light'>REMEMBER : X GOES FIRST</p>
 		</div>
 	);
 };

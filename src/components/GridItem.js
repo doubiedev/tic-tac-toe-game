@@ -16,10 +16,16 @@ const GridItem = ({ id }) => {
 
 	return (
 		<div
-			className={`grid-item flex ${
-				isHighlighted && currentPlayerTurn === 'x' && 'highlighted-x'
-			} ${isHighlighted && currentPlayerTurn === 'o' && 'highlighted-o'}
-			${!isHighlighted && 'non-highlighted'}
+			className={`grid-item flex br-L pointer ${
+				isHighlighted &&
+				currentPlayerTurn === 'x' &&
+				'bg-blue-highlight bs-blue-L'
+			} ${
+				isHighlighted &&
+				currentPlayerTurn === 'o' &&
+				'bg-yellow-highlight bs-yellow-L'
+			}
+			${!isHighlighted && 'bg-dark-highlight bs-dark-L'}
 			`}
 			onClick={() => handleGridItemClick(id)}
 			onMouseEnter={(e) => handleGridItemHover(e, id)}

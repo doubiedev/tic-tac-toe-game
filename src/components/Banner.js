@@ -10,9 +10,11 @@ const Banner = () => {
 		<>
 			{showBanner && (
 				<div className='banner-container flex'>
-					<div className='banner-wrapper flex'>
+					<div className='banner-wrapper flex bg-dark-highlight'>
 						<div className='flex flex-column'>
-							{isWin && <h4 className='banner-win-loss-text'>YOU WON!</h4>}
+							{isWin && (
+								<h4 className='banner-win-loss-text text-light'>YOU WON!</h4>
+							)}
 
 							{isWin && (
 								<div className='flex max-width'>
@@ -35,11 +37,9 @@ const Banner = () => {
 							)}
 
 							{!isWin && (
-								<div className='banner-title-text-wrapper'>
-									<h1 className='text-grey'>
-										{isTie ? 'ROUND TIED' : 'RESTART GAME?'}
-									</h1>
-								</div>
+								<h1 className='banner-no-win-text text-light'>
+									{isTie ? 'ROUND TIED' : 'RESTART GAME?'}
+								</h1>
 							)}
 
 							<BannerButtons />

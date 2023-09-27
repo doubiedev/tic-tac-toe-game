@@ -9,7 +9,7 @@ const Score = ({ type }) => {
 		<>
 			{gameType === 'cpu' && (
 				<div className='score flex flex-column'>
-					<p className='body'>
+					<p>
 						{type.toUpperCase()}
 						{isPlayerOneX && type === 'x' && ' (YOU)'}
 						{isPlayerOneX && type === 'o' && ' (CPU)'}
@@ -21,7 +21,7 @@ const Score = ({ type }) => {
 			)}
 			{gameType === 'player' && (
 				<div className='score flex flex-column'>
-					<p className='body'>
+					<p>
 						{type.toUpperCase()}
 						{isPlayerOneX && type === 'x' && ' (P1)'}
 						{isPlayerOneX && type === 'o' && ' (P2)'}

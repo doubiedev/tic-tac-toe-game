@@ -25,9 +25,6 @@
 
 	.btn-new-game {
 		height: 56px;
-	}
-
-	.btn-yellow {
 		margin-bottom: 16px;
 	}
 
@@ -102,9 +99,6 @@
 
 	.btn-new-game {
 		height: 67px;
-	}
-
-	.btn-yellow {
 		margin-bottom: 20px;
 	}
 
@@ -186,6 +180,10 @@ main {
 	width: 100%;
 }
 
+.pointer:hover {
+	cursor: pointer;
+}
+
 h1 {
 	font-size: 2.5rem;
 	letter-spacing: 2.5px;
@@ -218,16 +216,25 @@ p {
 .bg-blue-highlight {
 	background-color: var(--blue-secondary);
 }
+.bg-blue-hover:hover {
+	background-color: var(--blue-secondary);
+}
 .bg-yellow {
 	background-color: var(--yellow-primary);
 }
 .bg-yellow-highlight {
 	background-color: var(--yellow-secondary);
 }
+.bg-yellow-hover:hover {
+	background-color: var(--yellow-secondary);
+}
 .bg-light {
 	background-color: var(--light-primary);
 }
 .bg-light-highlight {
+	background-color: var(--light-secondary);
+}
+.bg-light-hover:hover {
 	background-color: var(--light-secondary);
 }
 .bg-dark {
@@ -246,75 +253,56 @@ p {
 .text-light {
 	color: var(--light-primary);
 }
+.text-dark {
+	color: var(--dark-primary);
+}
 
-.box-shadow-blue-L {
+.bs-blue-L {
 	box-shadow: inset 0px -0.5rem var(--blue-shadow);
 }
-.box-shadow-yellow-L {
+.bs-yellow-L {
 	box-shadow: inset 0px -0.5rem var(--yellow-shadow);
 }
-.box-shadow-light-L {
+.bs-light-L {
 	box-shadow: inset 0px -0.5rem var(--light-shadow);
 }
-.box-shadow-dark-L {
+.bs-dark-L {
 	box-shadow: inset 0 -0.5rem var(--dark-shadow);
 }
 
-.box-shadow-blue-M {
+.bs-blue-M {
 	box-shadow: inset 0px -0.25rem var(--blue-shadow);
 }
-.box-shadow-yellow-M {
+.bs-yellow-M {
 	box-shadow: inset 0px -0.25rem var(--yellow-shadow);
 }
-.box-shadow-light-M {
+.bs-light-M {
 	box-shadow: inset 0px -0.25rem var(--light-shadow);
 }
 
-.border-radius-L {
+.br-L {
 	border-radius: 15px;
 }
-.border-radius-M {
+.br-M {
 	border-radius: 10px;
 }
-.border-radius-S {
+.br-S {
 	border-radius: 5px;
 }
 
 /* New Game Menu Page */
 
-.btn-blue {
-	background-color: var(--blue-primary);
-	box-shadow: inset 0px -0.5rem var(--blue-shadow);
-}
-.btn-blue:hover {
-	background-color: var(--blue-secondary);
-}
-.btn-yellow {
-	background-color: var(--yellow-primary);
-	box-shadow: inset 0px -0.5rem var(--yellow-shadow);
-}
-.btn-yellow:hover {
-	background-color: var(--yellow-secondary);
-}
-
 .player-picker {
 	height: 205px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	background-color: var(--dark-secondary);
-	box-shadow: inset 0 -8px var(--dark-shadow);
-	border-radius: 15px;
+	justify-content: flex-start;
 }
 
 .player-picker h4 {
 	margin: 24px 0;
-	color: var(--light-primary);
 }
 
 .player-picker p {
 	margin-top: 17px;
-	color: var(--light-primary);
 	opacity: 0.5;
 }
 
@@ -322,15 +310,12 @@ p {
 	padding: 9px 8px;
 	width: calc(100% - 48px);
 	height: 72px;
-	background-color: var(--dark-primary);
-	border-radius: 15px;
 }
 
 .player-picker-x,
 .player-picker-o {
 	width: 50%;
 	height: 100%;
-	border-radius: 15px;
 }
 
 #mark-selected {
@@ -350,12 +335,6 @@ p {
 	fill: var(--light-primary);
 }
 
-.btn-new-game {
-	border-radius: 15px;
-	cursor: pointer;
-	color: var(--dark-primary);
-}
-
 .btn-new-game h3 {
 	transform: translateY(-0.25rem);
 }
@@ -363,17 +342,12 @@ p {
 /* Game Page */
 
 .game-top-wrapper {
-	display: flex;
-	align-items: center;
 	justify-content: space-between;
 	width: 100%;
 }
 
 .turn-tracker {
 	height: 100%;
-	color: var(--light-primary);
-	background-color: var(--dark-secondary);
-	box-shadow: inset 0px -0.25rem var(--dark-shadow);
 	padding-bottom: 0.125rem;
 }
 
@@ -387,15 +361,7 @@ p {
 }
 
 .reset-btn {
-	cursor: pointer;
 	height: 100%;
-	background-color: var(--light-primary);
-	border-radius: 10px;
-	box-shadow: inset 0px -0.25rem var(--light-shadow);
-}
-
-.reset-btn:hover {
-	background-color: var(--light-secondary);
 }
 
 .grid-container {
@@ -407,24 +373,7 @@ p {
 
 .grid-item {
 	user-select: none;
-	border-radius: 15px;
 	padding-bottom: 0.25rem;
-	cursor: pointer;
-}
-
-.non-highlighted {
-	background-color: var(--dark-secondary);
-	box-shadow: inset 0px -0.5rem var(--dark-shadow);
-}
-
-.highlighted-x {
-	background-color: var(--blue-secondary);
-	box-shadow: inset 0px -0.5rem var(--blue-shadow);
-}
-
-.highlighted-o {
-	background-color: var(--yellow-secondary);
-	box-shadow: inset 0px -0.5rem var(--yellow-shadow);
 }
 
 .scores-container {
@@ -464,22 +413,13 @@ p {
 .banner-wrapper {
 	width: 100%;
 	height: 266px;
-	background-color: var(--dark-secondary);
 }
 
 .banner-win-loss-text {
-	color: var(--light-primary);
 	margin-bottom: 16px;
 }
 
-.text-blue {
-	color: var(--blue-primary);
-}
-.text-yellow {
-	color: var(--yellow-primary);
-}
-.text-grey {
-	color: var(--light-primary);
+.banner-no-win-text {
 	margin-bottom: 7px;
 }
 
@@ -493,31 +433,6 @@ p {
 	padding: 0 16px 0.125rem;
 	height: 100%;
 	border-radius: 10px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.banner-btn-grey {
-	background-color: var(--light-primary);
-	box-shadow: inset 0px -0.25rem var(--light-shadow);
-	color: var(--dark-primary);
-}
-
-.banner-btn-grey:hover {
-	cursor: pointer;
-	background-color: var(--light-secondary);
-}
-
-.banner-btn-yellow {
-	background-color: var(--yellow-primary);
-	box-shadow: inset 0px -0.25rem var(--yellow-shadow);
-	color: var(--dark-primary);
-}
-
-.banner-btn-yellow:hover {
-	cursor: pointer;
-	background-color: var(--yellow-secondary);
 }
 
 .color-dark path {

@@ -6,7 +6,7 @@ import { ReactComponent as IconO } from '../assets/icon-o.svg';
 const TurnTracker = () => {
 	const { currentPlayerTurn } = useGame();
 	return (
-		<div className='turn-tracker flex'>
+		<div className='turn-tracker flex bg-dark-highlight text-light bs-dark-M'>
 			{currentPlayerTurn === 'x' ? <IconX /> : <IconO />}
 			<h4 className='turn-tracker-text'>TURN</h4>
 		</div>
