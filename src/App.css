@@ -398,12 +398,12 @@ p {
 	margin-bottom: 7px;
 }
 
-.banner-btns div {
+.banner-btns {
 	height: 52px;
 	margin-top: 24px;
 }
 
-.banner-btns div button {
+.banner-btns button {
 	margin: 0 0.5rem;
 	padding: 0 16px 0.125rem;
 }
