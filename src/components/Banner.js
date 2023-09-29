@@ -10,13 +10,10 @@ const Banner = () => {
 		<>
 			{showBanner && (
 				<div className='banner-container flex w-max h-max'>
-					<div className='banner-wrapper flex bg-dark-highlight w-max'>
-						<div className='flex flex-column'>
-							{isWin && (
+					<div className='banner-wrapper flex flex-column bg-dark-highlight w-max'>
+						{isWin ? (
+							<div className='flex flex-column'>
 								<h4 className='banner-win-loss-text text-light'>YOU WON!</h4>
-							)}
-
-							{isWin && (
 								<div className='flex w-max'>
 									{currentPlayerTurn === 'x' && (
 										<IconX style={{ marginRight: '24px' }} />
@@ -34,16 +31,14 @@ const Banner = () => {
 										TAKES THE ROUND
 									</h1>
 								</div>
-							)}
+							</div>
+						) : (
+							<h1 className='banner-no-win-text text-light'>
+								{isTie ? 'ROUND TIED' : 'RESTART GAME?'}
+							</h1>
+						)}
 
-							{!isWin && (
-								<h1 className='banner-no-win-text text-light'>
-									{isTie ? 'ROUND TIED' : 'RESTART GAME?'}
-								</h1>
-							)}
-
-							<BannerButtons />
-						</div>
+						<BannerButtons />
 					</div>
 				</div>
 			)}
