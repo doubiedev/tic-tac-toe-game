@@ -6,32 +6,25 @@ const Score = ({ type }) => {
 	const { gameType, isPlayerOneX } = useNewGameMenu();
 	const { score } = useGame();
 	return (
-		<>
-			{gameType === 'cpu' && (
-				<div className='score flex flex-column br-L'>
-					<p>
-						{type.toUpperCase()}
-						{isPlayerOneX && type === 'x' && ' (YOU)'}
-						{isPlayerOneX && type === 'o' && ' (CPU)'}
-						{!isPlayerOneX && type === 'x' && ' (CPU)'}
-						{!isPlayerOneX && type === 'o' && ' (YOU)'}
-					</p>
-					<h2>{score[type]}</h2>
-				</div>
-			)}
-			{gameType === 'player' && (
-				<div className='score flex flex-column br-L'>
-					<p>
-						{type.toUpperCase()}
-						{isPlayerOneX && type === 'x' && ' (P1)'}
-						{isPlayerOneX && type === 'o' && ' (P2)'}
-						{!isPlayerOneX && type === 'x' && ' (P2)'}
-						{!isPlayerOneX && type === 'o' && ' (P1)'}
-					</p>
-					<h2>{score[type]}</h2>
-				</div>
-			)}
-		</>
+		<div className='score flex flex-column br-L'>
+			<p>
+				{type.toUpperCase()}
+
+				{gameType === 'cpu' && (
+					<>
+						{type === 'x' && (isPlayerOneX ? ' (YOU)' : ' (CPU)')}
+						{type === 'o' && (isPlayerOneX ? ' (CPU)' : ' (YOU)')}
+					</>
+				)}
+				{gameType === 'player' && (
+					<>
+						{type === 'x' && (isPlayerOneX ? ' (P1)' : ' (P2)')}
+						{type === 'o' && (isPlayerOneX ? ' (P2)' : '  (P1)')}
+					</>
+				)}
+			</p>
+			<h2>{score[type]}</h2>
+		</div>
 	);
 };
 
