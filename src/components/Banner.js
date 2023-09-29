@@ -15,17 +15,15 @@ const Banner = () => {
 							<div className='flex flex-column'>
 								<h4 className='banner-win-loss-text text-light'>YOU WON!</h4>
 								<div className='flex w-max'>
-									{currentPlayerTurn === 'x' && (
+									{currentPlayerTurn === 'x' ? (
 										<IconX style={{ marginRight: '24px' }} />
-									)}
-
-									{currentPlayerTurn === 'o' && (
+									) : (
 										<IconO style={{ marginRight: '24px' }} />
 									)}
 
 									<h1
-										className={`${currentPlayerTurn === 'x' && 'text-blue'} ${
-											currentPlayerTurn === 'o' && 'text-yellow'
+										className={`${
+											currentPlayerTurn === 'x' ? 'text-blue' : 'text-yellow'
 										}`}
 									>
 										TAKES THE ROUND
