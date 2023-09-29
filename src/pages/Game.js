@@ -11,7 +11,7 @@ const Game = () => {
 		<main className='flex'>
 			<Banner />
 			<div className='game-container flex flex-column'>
-				<div className='game-top-wrapper flex'>
+				<div className='game-top-wrapper flex w-max'>
 					<Logo />
 					<TurnTracker />
 					<ResetButton />

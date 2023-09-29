@@ -31,8 +31,8 @@ const GridItem = ({ id }) => {
 			onMouseEnter={(e) => handleGridItemHover(e, id)}
 			onMouseLeave={(e) => handleGridItemHover(e, id)}
 		>
-			{mark === 'x' && <IconX className={isHighlighted ? 'color-dark' : ''} />}
-			{mark === 'o' && <IconO className={isHighlighted ? 'color-dark' : ''} />}
+			{mark === 'x' && <IconX className={isHighlighted ? 'fill-dark' : ''} />}
+			{mark === 'o' && <IconO className={isHighlighted ? 'fill-dark' : ''} />}
 
 			{mark === '' && isHoverId === id && currentPlayerTurn === 'x' && (
 				<IconXOutline />

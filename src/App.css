@@ -11,7 +11,7 @@
 	--dark-secondary: #1f3641;
 	--dark-shadow: #10212a;
 	--light-primary: #a8bfc9;
-	--light-primary-hover: rgba(168, 191, 201, 0.05);
+	--light-primary-hover: #a8bfc90d;
 	--light-secondary: #dbe8ed;
 	--light-shadow: #6b8997;
 }
@@ -176,8 +176,18 @@ main {
 	flex-direction: column;
 }
 
-.max-width {
+.w-max {
 	width: 100%;
+}
+.h-max {
+	height: 100%;
+}
+
+.pb-L {
+	padding-bottom: 0.25rem;
+}
+.pb-M {
+	padding-bottom: 0.125rem;
 }
 
 .pointer:hover {
@@ -243,6 +253,16 @@ p {
 .bg-dark-highlight {
 	background-color: var(--dark-secondary);
 }
+.bg-mark-not-selected:hover {
+	background-color: var(--light-primary-hover);
+}
+
+.fill-dark path {
+	fill: var(--dark-primary);
+}
+.fill-light path {
+	fill: var(--light-primary);
+}
 
 .text-blue {
 	color: var(--blue-primary);
@@ -262,9 +282,6 @@ p {
 }
 .bs-yellow-L {
 	box-shadow: inset 0px -0.5rem var(--yellow-shadow);
-}
-.bs-light-L {
-	box-shadow: inset 0px -0.5rem var(--light-shadow);
 }
 .bs-dark-L {
 	box-shadow: inset 0 -0.5rem var(--dark-shadow);
@@ -315,53 +332,17 @@ p {
 .player-picker-x,
 .player-picker-o {
 	width: 50%;
-	height: 100%;
-}
-
-#mark-selected {
-	background-color: var(--light-primary);
-}
-.mark-selected path {
-	fill: var(--dark-primary);
-}
-#mark-not-selected {
-	background-color: var(--dark-primary);
-}
-#mark-not-selected:hover {
-	background-color: var(--light-primary-hover);
-	cursor: pointer;
-}
-.mark-not-selected path {
-	fill: var(--light-primary);
-}
-
-.btn-new-game h3 {
-	transform: translateY(-0.25rem);
 }
 
 /* Game Page */
 
 .game-top-wrapper {
 	justify-content: space-between;
-	width: 100%;
-}
-
-.turn-tracker {
-	height: 100%;
-	padding-bottom: 0.125rem;
-}
-
-.turn-tracker path {
-	fill: var(--light-primary);
 }
 
 .turn-tracker-text {
 	cursor: default;
 	user-select: none;
-}
-
-.reset-btn {
-	height: 100%;
 }
 
 .grid-container {
@@ -373,11 +354,9 @@ p {
 
 .grid-item {
 	user-select: none;
-	padding-bottom: 0.25rem;
 }
 
 .scores-container {
-	width: 100%;
 	display: grid;
 	gap: 20px;
 	grid-template-columns: auto auto auto;
@@ -386,7 +365,6 @@ p {
 .score {
 	justify-content: flex-start;
 	padding-top: 13px;
-	border-radius: 15px;
 }
 
 .score:nth-child(1) {
@@ -405,13 +383,10 @@ p {
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 100%;
-	height: 100%;
 	background-color: rgba(0, 0, 0, 50%);
 }
 
 .banner-wrapper {
-	width: 100%;
 	height: 266px;
 }
 
@@ -431,10 +406,4 @@ p {
 .banner-btns div button {
 	margin: 0 0.5rem;
 	padding: 0 16px 0.125rem;
-	height: 100%;
-	border-radius: 10px;
-}
-
-.color-dark path {
-	fill: var(--dark-primary);
 }

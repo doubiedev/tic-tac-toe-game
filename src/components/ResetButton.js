@@ -7,7 +7,7 @@ const ResetButton = () => {
 
 	return (
 		<button
-			className='reset-btn bg-light bg-light-hover br-M bs-light-M pointer'
+			className='reset-btn bg-light bg-light-hover br-M bs-light-M pointer h-max'
 			onClick={() => handleResetButton()}
 		>
 			<Reset />
