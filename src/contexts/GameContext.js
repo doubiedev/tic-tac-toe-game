@@ -25,7 +25,8 @@ export const GameProvider = ({ children }) => {
 	const [isWin, setIsWin] = useState(false);
 	const [isTie, setIsTie] = useState(false);
 	const [isHoverId, setIsHoverId] = useState(null);
-	const [score, setScore] = useState({ x: 0, ties: 0, o: 0 });
+	const [scoreCpu, setScoreCpu] = useState({ x: 0, ties: 0, o: 0 });
+	const [scorePlayer, setScorePlayer] = useState({ x: 0, ties: 0, o: 0 });
 	const [showBanner, setShowBanner] = useState(false);
 	const [shouldReset, setShouldReset] = useState(false);
 
@@ -62,11 +63,20 @@ export const GameProvider = ({ children }) => {
 	};
 
 	const updateScore = (scoreType) => {
-		setScore((prevScore) => {
-			const newScore = { ...prevScore };
-			newScore[scoreType] += 1;
-			return newScore;
-		});
+		if (gameType === 'cpu') {
+			setScoreCpu((prevScore) => {
+				const newScore = { ...prevScore };
+				newScore[scoreType] += 1;
+				return newScore;
+			});
+		}
+		if (gameType === 'player') {
+			setScorePlayer((prevScore) => {
+				const newScore = { ...prevScore };
+				newScore[scoreType] += 1;
+				return newScore;
+			});
+		}
 	};
 
 	const handleGridItemHover = (e, id) => {
@@ -157,7 +167,8 @@ export const GameProvider = ({ children }) => {
 				isWin,
 				isTie,
 				isHoverId,
-				score,
+				scoreCpu,
+				scorePlayer,
 				showBanner,
 				shouldReset,
 				isGameOver,

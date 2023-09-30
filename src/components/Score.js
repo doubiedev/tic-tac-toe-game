@@ -4,7 +4,7 @@ import { useGame } from '../contexts/GameContext';
 
 const Score = ({ type }) => {
 	const { gameType, isPlayerOneX } = useNewGameMenu();
-	const { score } = useGame();
+	const { scoreCpu, scorePlayer } = useGame();
 	return (
 		<div className='score flex flex-column br-L'>
 			<p>
@@ -23,7 +23,8 @@ const Score = ({ type }) => {
 					</>
 				)}
 			</p>
-			<h2>{score[type]}</h2>
+			{gameType === 'cpu' && <h2>{scoreCpu[type]}</h2>}
+			{gameType === 'player' && <h2>{scorePlayer[type]}</h2>}
 		</div>
 	);
 };
