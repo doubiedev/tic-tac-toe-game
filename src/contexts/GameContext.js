@@ -64,10 +64,8 @@ export const GameProvider = ({ children }) => {
 			const cpuMark = isPlayerOneX ? 'o' : 'x';
 
 			if (currentPlayerTurn === cpuMark) {
-				setTimeout(() => {
-					handleCpu(gridItems, cpuMark, userMark);
-					setCurrentPlayerTurn(userMark);
-				}, 500);
+				handleCpu(gridItems, cpuMark, userMark);
+				setCurrentPlayerTurn(userMark);
 			}
 		}
 	}, [currentPlayerTurn, gameType]);
@@ -209,14 +207,14 @@ export const GameProvider = ({ children }) => {
 		navigate('/');
 	};
 
-	const isWinner = (updatedGridItems) => {
-		const currentPlayerMarks = updatedGridItems
+	const isWinner = (gridItems) => {
+		const currentPlayerMarks = gridItems
 			.filter((gridItem) => gridItem.mark === currentPlayerTurn)
 			.map((gridItem) => gridItem.id);
 
 		for (const combo of winningCombinations) {
 			if (combo.every((item) => currentPlayerMarks.includes(item))) {
-				const updatedItems = updatedGridItems.map((gridItem) => ({
+				const updatedItems = gridItems.map((gridItem) => ({
 					...gridItem,
 					isHighlighted: combo.includes(gridItem.id),
 				}));
