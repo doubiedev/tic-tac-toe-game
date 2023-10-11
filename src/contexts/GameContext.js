@@ -13,7 +13,7 @@ export const GameProvider = ({ children }) => {
 	const navigate = useNavigate();
 
 	const initialGridItems = [];
-	for (let id = 1; id <= 9; id++) {
+	for (let id = 0; id <= 8; id++) {
 		initialGridItems.push({ id, mark: '', isHighlighted: false });
 	}
 	const [gridItems, setGridItems] = useState(initialGridItems);
@@ -29,6 +29,17 @@ export const GameProvider = ({ children }) => {
 	const [scorePlayer, setScorePlayer] = useState({ x: 0, ties: 0, o: 0 });
 	const [showBanner, setShowBanner] = useState(false);
 	const [shouldReset, setShouldReset] = useState(false);
+
+	const winningCombinations = [
+		[0, 1, 2],
+		[3, 4, 5],
+		[6, 7, 8],
+		[0, 3, 6],
+		[1, 4, 7],
+		[2, 5, 8],
+		[0, 4, 8],
+		[2, 4, 6],
+	];
 
 	useEffect(() => {
 		if (gameType === '') navigate('/');
@@ -47,6 +58,20 @@ export const GameProvider = ({ children }) => {
 		}
 	}, [isGameOver]);
 
+	useEffect(() => {
+		if (gameType === 'cpu') {
+			const userMark = isPlayerOneX ? 'x' : 'o';
+			const cpuMark = isPlayerOneX ? 'o' : 'x';
+
+			if (currentPlayerTurn === cpuMark) {
+				setTimeout(() => {
+					handleCpu(gridItems, cpuMark, userMark);
+					setCurrentPlayerTurn(userMark);
+				}, 500);
+			}
+		}
+	}, [currentPlayerTurn, gameType]);
+
 	const handleGridItemClick = (id) => {
 		if (gridItems.find((gridItem) => gridItem.id === id).mark === '') {
 			const updatedGridItems = gridItems.map((gridItem) =>
@@ -60,6 +85,84 @@ export const GameProvider = ({ children }) => {
 				setCurrentPlayerTurn(currentPlayerTurn === 'x' ? 'o' : 'x');
 			}
 		}
+	};
+
+	const handleCpu = (updatedGridItems, cpuMark, userMark) => {
+		const calculateCPUMove = (gameState) => {
+			if (currentPlayerTurn === cpuMark) {
+				// Check for either player about to win
+				for (const combo of winningCombinations) {
+					const [a, b, c] = combo;
+					const marks = [
+						gameState[a].mark,
+						gameState[b].mark,
+						gameState[c].mark,
+					];
+					// Try to win
+					if (
+						marks.includes('') &&
+						marks.filter((mark) => mark === cpuMark).length === 2
+					) {
+						const emptyIndex = marks.indexOf('');
+						if (emptyIndex === 0) return a;
+						if (emptyIndex === 1) return b;
+						if (emptyIndex === 2) return c;
+					}
+					// Block player from winning
+					if (
+						marks.includes('') &&
+						marks.filter((mark) => mark === userMark).length === 2
+					) {
+						const emptyIndex = marks.indexOf('');
+						if (emptyIndex === 0) return a;
+						if (emptyIndex === 1) return b;
+						if (emptyIndex === 2) return c;
+					}
+				}
+
+				// Take the center if available
+				if (gameState[4].mark === '') {
+					return 4;
+				}
+
+				// Try to take a corner
+				const corners = [0, 2, 6, 8];
+				for (const corner of corners) {
+					if (gameState[corner].mark === '') {
+						return corner;
+					}
+				}
+
+				// Try to take an edge
+				const edges = [1, 3, 5, 7];
+				for (const edge of edges) {
+					if (gameState[edge].mark === '') {
+						return edge;
+					}
+				}
+
+				// If no strategic moves are available, make a random move
+				const emptyCells = gameState
+					.map((cell, index) => (cell.mark === '' ? index : -1))
+					.filter((index) => index !== -1);
+				if (emptyCells.length > 0) {
+					const randomIndex = Math.floor(Math.random() * emptyCells.length);
+					return emptyCells[randomIndex];
+				}
+			}
+
+			return -1; // No valid move found
+		};
+
+		const cpuMove = calculateCPUMove(updatedGridItems);
+
+		if (cpuMove >= 0) {
+			const newGridItems = [...updatedGridItems];
+			newGridItems[cpuMove].mark = currentPlayerTurn;
+
+			setGridItems(newGridItems);
+		}
+		console.log(cpuMove);
 	};
 
 	const updateScore = (scoreType) => {
@@ -110,17 +213,6 @@ export const GameProvider = ({ children }) => {
 		const currentPlayerMarks = updatedGridItems
 			.filter((gridItem) => gridItem.mark === currentPlayerTurn)
 			.map((gridItem) => gridItem.id);
-
-		const winningCombinations = [
-			[1, 2, 3],
-			[4, 5, 6],
-			[7, 8, 9],
-			[1, 4, 7],
-			[2, 5, 8],
-			[3, 6, 9],
-			[1, 5, 9],
-			[3, 5, 7],
-		];
 
 		for (const combo of winningCombinations) {
 			if (combo.every((item) => currentPlayerMarks.includes(item))) {
