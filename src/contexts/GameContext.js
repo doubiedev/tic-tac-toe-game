@@ -17,10 +17,7 @@ export const GameProvider = ({ children }) => {
 		initialGridItems.push({ id, mark: '', isHighlighted: false });
 	}
 	const [gridItems, setGridItems] = useState(initialGridItems);
-
-	const [currentPlayerTurn, setCurrentPlayerTurn] = useState(
-		isPlayerOneX ? 'x' : 'o'
-	);
+	const [currentPlayerTurn, setCurrentPlayerTurn] = useState('x');
 	const [isGameOver, setIsGameOver] = useState(false);
 	const [isWin, setIsWin] = useState(false);
 	const [isTie, setIsTie] = useState(false);
@@ -29,6 +26,9 @@ export const GameProvider = ({ children }) => {
 	const [scorePlayer, setScorePlayer] = useState({ x: 0, ties: 0, o: 0 });
 	const [showBanner, setShowBanner] = useState(false);
 	const [shouldReset, setShouldReset] = useState(false);
+
+	const playerOneMark = isPlayerOneX ? 'x' : 'o';
+	const playerTwoMark = isPlayerOneX ? 'o' : 'x';
 
 	const winningCombinations = [
 		[0, 1, 2],
@@ -58,11 +58,8 @@ export const GameProvider = ({ children }) => {
 
 	useEffect(() => {
 		if (gameType === 'cpu') {
-			const userMark = isPlayerOneX ? 'x' : 'o';
-			const cpuMark = isPlayerOneX ? 'o' : 'x';
-
-			if (currentPlayerTurn === cpuMark) {
-				handleCpu(gridItems, cpuMark, userMark);
+			if (currentPlayerTurn === playerTwoMark) {
+				handleCpu(gridItems);
 			}
 		}
 	}, [currentPlayerTurn, gameType]);
@@ -86,9 +83,9 @@ export const GameProvider = ({ children }) => {
 		}
 	};
 
-	const handleCpu = (updatedGridItems, cpuMark, userMark) => {
+	const handleCpu = (updatedGridItems) => {
 		const calculateCPUMove = (gameState) => {
-			if (currentPlayerTurn === cpuMark) {
+			if (currentPlayerTurn === playerTwoMark) {
 				// Check for either player about to win
 				for (const combo of winningCombinations) {
 					const [a, b, c] = combo;
@@ -100,7 +97,7 @@ export const GameProvider = ({ children }) => {
 					// Try to win
 					if (
 						marks.includes('') &&
-						marks.filter((mark) => mark === cpuMark).length === 2
+						marks.filter((mark) => mark === playerTwoMark).length === 2
 					) {
 						const emptyIndex = marks.indexOf('');
 						if (emptyIndex === 0) return a;
@@ -165,7 +162,7 @@ export const GameProvider = ({ children }) => {
 			} else if (isTied(newGridItems)) {
 				handleTie();
 			} else {
-				setCurrentPlayerTurn(userMark);
+				setCurrentPlayerTurn(playerOneMark);
 			}
 		}
 	};
@@ -203,7 +200,7 @@ export const GameProvider = ({ children }) => {
 
 	const handleBannerReset = () => {
 		setGridItems(initialGridItems);
-		setCurrentPlayerTurn(isPlayerOneX ? 'x' : 'o');
+		setCurrentPlayerTurn('x');
 		setIsWin(false);
 		setIsTie(false);
 		setIsGameOver(false);
@@ -269,6 +266,7 @@ export const GameProvider = ({ children }) => {
 				showBanner,
 				shouldReset,
 				isGameOver,
+				playerOneMark,
 			}}
 		>
 			<GameContextUpdate.Provider
