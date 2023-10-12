@@ -45,18 +45,16 @@ export const GameProvider = ({ children }) => {
 		if (gameType === '') navigate('/');
 	}, []);
 
-	useEffect(() => {
-		if (isWinner(gridItems)) {
-			setIsWin(true);
-			updateScore(currentPlayerTurn);
-			toggleBanner();
-		}
-		if (isTied(gridItems)) {
-			setIsTie(true);
-			updateScore('ties');
-			toggleBanner();
-		}
-	}, [isGameOver]);
+	const handleWin = () => {
+		setIsWin(true);
+		updateScore(currentPlayerTurn);
+		toggleBanner();
+	};
+	const handleTie = () => {
+		setIsTie(true);
+		updateScore('ties');
+		toggleBanner();
+	};
 
 	useEffect(() => {
 		if (gameType === 'cpu') {
@@ -65,21 +63,24 @@ export const GameProvider = ({ children }) => {
 
 			if (currentPlayerTurn === cpuMark) {
 				handleCpu(gridItems, cpuMark, userMark);
-				setCurrentPlayerTurn(userMark);
 			}
 		}
 	}, [currentPlayerTurn, gameType]);
 
 	const handleGridItemClick = (id) => {
 		if (gridItems.find((gridItem) => gridItem.id === id).mark === '') {
-			const updatedGridItems = gridItems.map((gridItem) =>
+			const newGridItems = gridItems.map((gridItem) =>
 				gridItem.id === id && gridItem.mark === ''
 					? { ...gridItem, mark: currentPlayerTurn }
 					: gridItem
 			);
-			setGridItems(updatedGridItems);
+			setGridItems(newGridItems);
 
-			if (!isWinner(updatedGridItems) && !isTied(updatedGridItems)) {
+			if (isWinner(newGridItems)) {
+				handleWin();
+			} else if (isTied(newGridItems)) {
+				handleTie();
+			} else {
 				setCurrentPlayerTurn(currentPlayerTurn === 'x' ? 'o' : 'x');
 			}
 		}
@@ -106,16 +107,16 @@ export const GameProvider = ({ children }) => {
 						if (emptyIndex === 1) return b;
 						if (emptyIndex === 2) return c;
 					}
-					// Block player from winning
-					if (
-						marks.includes('') &&
-						marks.filter((mark) => mark === userMark).length === 2
-					) {
-						const emptyIndex = marks.indexOf('');
-						if (emptyIndex === 0) return a;
-						if (emptyIndex === 1) return b;
-						if (emptyIndex === 2) return c;
-					}
+					// // Block player from winning
+					// if (
+					// 	marks.includes('') &&
+					// 	marks.filter((mark) => mark === userMark).length === 2
+					// ) {
+					// 	const emptyIndex = marks.indexOf('');
+					// 	if (emptyIndex === 0) return a;
+					// 	if (emptyIndex === 1) return b;
+					// 	if (emptyIndex === 2) return c;
+					// }
 				}
 
 				// Take the center if available
@@ -159,8 +160,14 @@ export const GameProvider = ({ children }) => {
 			newGridItems[cpuMove].mark = currentPlayerTurn;
 
 			setGridItems(newGridItems);
+			if (isWinner(newGridItems)) {
+				handleWin();
+			} else if (isTied(newGridItems)) {
+				handleTie();
+			} else {
+				setCurrentPlayerTurn(userMark);
+			}
 		}
-		console.log(cpuMove);
 	};
 
 	const updateScore = (scoreType) => {
