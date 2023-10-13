@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNewGameMenu } from './NewGameMenuContext';
+import { useNewGameMenu, useNewGameMenuUpdate } from './NewGameMenuContext';
 
 const GameContext = createContext();
 const GameContextUpdate = createContext();
@@ -9,7 +9,8 @@ export const useGame = () => useContext(GameContext);
 export const useGameUpdate = () => useContext(GameContextUpdate);
 
 export const GameProvider = ({ children }) => {
-	const { gameType, isPlayerOneX } = useNewGameMenu();
+	const { gameType, isPlayerOneX, isNewGame } = useNewGameMenu();
+	const { setIsNewGame } = useNewGameMenuUpdate();
 	const navigate = useNavigate();
 
 	const initialGridItems = [];
@@ -25,7 +26,6 @@ export const GameProvider = ({ children }) => {
 	const [scoreCpu, setScoreCpu] = useState({ x: 0, ties: 0, o: 0 });
 	const [scorePlayer, setScorePlayer] = useState({ x: 0, ties: 0, o: 0 });
 	const [showBanner, setShowBanner] = useState(false);
-	const [shouldReset, setShouldReset] = useState(false);
 
 	const playerOneMark = isPlayerOneX ? 'x' : 'o';
 	const playerTwoMark = isPlayerOneX ? 'o' : 'x';
@@ -43,7 +43,13 @@ export const GameProvider = ({ children }) => {
 
 	useEffect(() => {
 		if (gameType === '') navigate('/');
-	}, []);
+		if (isNewGame) {
+			handleBannerReset();
+			setIsNewGame(false);
+		} else {
+			handleCpu(gridItems);
+		}
+	}, [isNewGame, gameType, isPlayerOneX, currentPlayerTurn]);
 
 	const handleWin = () => {
 		setIsWin(true);
@@ -55,14 +61,6 @@ export const GameProvider = ({ children }) => {
 		updateScore('ties');
 		toggleBanner();
 	};
-
-	useEffect(() => {
-		if (gameType === 'cpu') {
-			if (currentPlayerTurn === playerTwoMark) {
-				handleCpu(gridItems);
-			}
-		}
-	}, [currentPlayerTurn, gameType]);
 
 	const handleGridItemClick = (id) => {
 		if (gridItems.find((gridItem) => gridItem.id === id).mark === '') {
@@ -84,85 +82,87 @@ export const GameProvider = ({ children }) => {
 	};
 
 	const handleCpu = (updatedGridItems) => {
-		const calculateCPUMove = (gameState) => {
-			if (currentPlayerTurn === playerTwoMark) {
-				// Check for either player about to win
-				for (const combo of winningCombinations) {
-					const [a, b, c] = combo;
-					const marks = [
-						gameState[a].mark,
-						gameState[b].mark,
-						gameState[c].mark,
-					];
-					// Try to win
-					if (
-						marks.includes('') &&
-						marks.filter((mark) => mark === playerTwoMark).length === 2
-					) {
-						const emptyIndex = marks.indexOf('');
-						if (emptyIndex === 0) return a;
-						if (emptyIndex === 1) return b;
-						if (emptyIndex === 2) return c;
+		if (gameType === 'cpu' && !isNewGame) {
+			const calculateCPUMove = (gameState) => {
+				if (currentPlayerTurn === playerTwoMark) {
+					// Check for either player about to win
+					for (const combo of winningCombinations) {
+						const [a, b, c] = combo;
+						const marks = [
+							gameState[a].mark,
+							gameState[b].mark,
+							gameState[c].mark,
+						];
+						// Try to win
+						if (
+							marks.includes('') &&
+							marks.filter((mark) => mark === playerTwoMark).length === 2
+						) {
+							const emptyIndex = marks.indexOf('');
+							if (emptyIndex === 0) return a;
+							if (emptyIndex === 1) return b;
+							if (emptyIndex === 2) return c;
+						}
+						// Block player from winning
+						if (
+							marks.includes('') &&
+							marks.filter((mark) => mark === playerOneMark).length === 2
+						) {
+							const emptyIndex = marks.indexOf('');
+							if (emptyIndex === 0) return a;
+							if (emptyIndex === 1) return b;
+							if (emptyIndex === 2) return c;
+						}
 					}
-					// // Block player from winning
-					// if (
-					// 	marks.includes('') &&
-					// 	marks.filter((mark) => mark === userMark).length === 2
-					// ) {
-					// 	const emptyIndex = marks.indexOf('');
-					// 	if (emptyIndex === 0) return a;
-					// 	if (emptyIndex === 1) return b;
-					// 	if (emptyIndex === 2) return c;
-					// }
-				}
 
-				// Take the center if available
-				if (gameState[4].mark === '') {
-					return 4;
-				}
+					// Take the center if available
+					if (gameState[4].mark === '') {
+						return 4;
+					}
 
-				// Try to take a corner
-				const corners = [0, 2, 6, 8];
-				for (const corner of corners) {
-					if (gameState[corner].mark === '') {
-						return corner;
+					// Try to take a corner
+					const corners = [0, 2, 6, 8];
+					for (const corner of corners) {
+						if (gameState[corner].mark === '') {
+							return corner;
+						}
+					}
+
+					// Try to take an edge
+					const edges = [1, 3, 5, 7];
+					for (const edge of edges) {
+						if (gameState[edge].mark === '') {
+							return edge;
+						}
+					}
+
+					// If no strategic moves are available, make a random move
+					const emptyCells = gameState
+						.map((cell, index) => (cell.mark === '' ? index : -1))
+						.filter((index) => index !== -1);
+					if (emptyCells.length > 0) {
+						const randomIndex = Math.floor(Math.random() * emptyCells.length);
+						return emptyCells[randomIndex];
 					}
 				}
 
-				// Try to take an edge
-				const edges = [1, 3, 5, 7];
-				for (const edge of edges) {
-					if (gameState[edge].mark === '') {
-						return edge;
-					}
+				return -1; // No valid move found
+			};
+
+			const cpuMove = calculateCPUMove(updatedGridItems);
+
+			if (cpuMove >= 0) {
+				const newGridItems = [...updatedGridItems];
+				newGridItems[cpuMove].mark = currentPlayerTurn;
+
+				setGridItems(newGridItems);
+				if (isWinner(newGridItems)) {
+					handleWin();
+				} else if (isTied(newGridItems)) {
+					handleTie();
+				} else {
+					setCurrentPlayerTurn(playerOneMark);
 				}
-
-				// If no strategic moves are available, make a random move
-				const emptyCells = gameState
-					.map((cell, index) => (cell.mark === '' ? index : -1))
-					.filter((index) => index !== -1);
-				if (emptyCells.length > 0) {
-					const randomIndex = Math.floor(Math.random() * emptyCells.length);
-					return emptyCells[randomIndex];
-				}
-			}
-
-			return -1; // No valid move found
-		};
-
-		const cpuMove = calculateCPUMove(updatedGridItems);
-
-		if (cpuMove >= 0) {
-			const newGridItems = [...updatedGridItems];
-			newGridItems[cpuMove].mark = currentPlayerTurn;
-
-			setGridItems(newGridItems);
-			if (isWinner(newGridItems)) {
-				handleWin();
-			} else if (isTied(newGridItems)) {
-				handleTie();
-			} else {
-				setCurrentPlayerTurn(playerOneMark);
 			}
 		}
 	};
@@ -194,8 +194,12 @@ export const GameProvider = ({ children }) => {
 	};
 
 	const handleResetButton = () => {
-		setShouldReset(true);
 		toggleBanner();
+	};
+
+	const handleQuit = () => {
+		handleBannerReset();
+		navigate('/');
 	};
 
 	const handleBannerReset = () => {
@@ -204,11 +208,6 @@ export const GameProvider = ({ children }) => {
 		setIsWin(false);
 		setIsTie(false);
 		setIsGameOver(false);
-	};
-
-	const handleQuit = () => {
-		handleBannerReset();
-		navigate('/');
 	};
 
 	const isWinner = (gridItems) => {
@@ -264,7 +263,6 @@ export const GameProvider = ({ children }) => {
 				scoreCpu,
 				scorePlayer,
 				showBanner,
-				shouldReset,
 				isGameOver,
 				playerOneMark,
 			}}

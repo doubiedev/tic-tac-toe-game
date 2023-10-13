@@ -12,16 +12,18 @@ export const NewGameMenuProvider = ({ children }) => {
 
 	const [isPlayerOneX, setIsPlayerOneX] = useState(true);
 	const [gameType, setGameType] = useState('');
+	const [isNewGame, setIsNewGame] = useState(false);
 
 	const handleNewGameClick = (gameType) => {
 		setGameType(gameType);
+		setIsNewGame(true);
 		navigate('/game');
 	};
 
 	return (
-		<NewGameMenuContext.Provider value={{ isPlayerOneX, gameType }}>
+		<NewGameMenuContext.Provider value={{ isPlayerOneX, gameType, isNewGame }}>
 			<NewGameMenuContextUpdate.Provider
-				value={{ handleNewGameClick, setIsPlayerOneX }}
+				value={{ handleNewGameClick, setIsPlayerOneX, setIsNewGame }}
 			>
 				{children}
 			</NewGameMenuContextUpdate.Provider>
